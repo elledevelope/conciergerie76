@@ -1,6 +1,9 @@
 # Conciergerie76
 
+*Note : La dernière version du projet est sur la branche `dev``.*
+
 Conciergerie76 est un projet Symfony fonctionnant avec WAMP pour le moment et avec un serveur LAMP sous Debian par la suite.
+La derniere vertio du prjet est sut la branch dev
 Pour apporter des modifications, vous devez d'abord forker ce repository.
 
 
