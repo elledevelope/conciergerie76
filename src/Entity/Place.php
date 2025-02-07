@@ -1,4 +1,5 @@
 <?php
+// src/Entity/Place.php
 
 namespace App\Entity;
 
@@ -21,6 +22,9 @@ class Place
 
     #[ORM\Column]
     private ?float $longitude = null;
+
+    #[ORM\Column(length: 50)]
+    private ?string $type = null; 
 
     public function getId(): ?int
     {
@@ -59,6 +63,18 @@ class Place
     public function setLongitude(float $longitude): static
     {
         $this->longitude = $longitude;
+
+        return $this;
+    }
+
+    public function getType(): ?string
+    {
+        return $this->type;
+    }
+
+    public function setType(string $type): static
+    {
+        $this->type = $type;
 
         return $this;
     }

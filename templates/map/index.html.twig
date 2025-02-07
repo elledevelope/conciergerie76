@@ -2,27 +2,63 @@
 
 {% block title %}Hello MapController!{% endblock %}
 
-{% block body %}
+
+{#
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Map Integration</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
-</head>
-<body>
-    <div id="map" style="height: 500px;"></div>
+</head> #}
 
-    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-    <script>
-        var map = L.map('map').setView([51.505, -0.09], 13); // Set latitude, longitude, and zoom level
+{% block body %}
+<h1>Map of Places</h1>
+<div id="map" style="height: 500px;"></div>
 
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '&copy; OpenStreetMap contributors'
-        }).addTo(map);
+{# {{ dump(places) }} #}
+<pre>{{ places|json_encode(constant('JSON_PRETTY_PRINT')) }}</pre>
 
-        L.marker([51.505, -0.09]).addTo(map)
-            .bindPopup('Hello! This is a marker.')
-            .openPopup();
-    </script>
-</body>
+
+<script>
+    var map = L.map('map').setView([49.44313000, 1.09932000], 13);
+
+    // Tile layer (OpenStreetMap)
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map);
+
+     // Convert Twig places array into JavaScript JSON
+    var places = {{ places|json_encode|raw }};
+    console.log(places); // Debugging
+
+    places.forEach(function(place) {
+        console.log(place.name, place.latitude, place.longitude);
+    });
+
+
+
+    places.forEach(function(place) {
+        var placeMarker = L.marker([place.latitude, place.longitude])
+            .addTo(map)
+            .bindPopup("<b>" + place.name + "</b><br>Type: " + place.type);
+
+        placeMarker.on('click', function () {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function (position) {
+                    var userLat = position.coords.latitude;
+                    var userLon = position.coords.longitude;
+
+                    var userLocation = L.latLng(userLat, userLon);
+                    var placeLocation = L.latLng(place.latitude, place.longitude);
+                    var distance = userLocation.distanceTo(placeLocation);
+
+                    alert("Distance to " + place.name + ": " + distance.toFixed(2) + " meters");
+                });
+            } else {
+                alert("Geolocation is not supported by this browser.");
+            }
+        });
+    });
+</script>
 {% endblock %}
