@@ -3,26 +3,72 @@
 {% block title %}Hello MapController!{% endblock %}
 
 {% block body %}
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Map Integration</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
 </head>
+
 <body>
     <div id="map" style="height: 500px;"></div>
 
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
     <script>
-        var map = L.map('map').setView([51.505, -0.09], 13); // Set latitude, longitude, and zoom level
+        var map = L.map('map').setView([49.44313000, 1.09932000], 13); // latitude, longitude, and zoom level 
 
+        // Load OpenStreetMap tiles
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '&copy; OpenStreetMap contributors'
         }).addTo(map);
 
-        L.marker([51.505, -0.09]).addTo(map)
-            .bindPopup('Hello! This is a marker.')
+        // marker 
+        L.marker([49.4946, 1.1381]).addTo(map)
+            .bindPopup('Rouen, France')
             .openPopup();
+
+        // Function to get user location
+        function locateUser() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(
+                    function (position) {
+                        var userLat = position.coords.latitude;
+                        var userLng = position.coords.longitude;
+
+                        // Center map on user's location
+                        map.setView([userLat, userLng], 13);
+
+                        // Add a marker for the user
+                        L.marker([userLat, userLng], {
+                            icon: L.icon({
+                                iconUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon.png',
+                                iconSize: [25, 41],
+                                iconAnchor: [12, 41],
+                                popupAnchor: [1, -34]
+                            })
+                        }).addTo(map)
+                            .bindPopup('You are here')
+                            .openPopup();
+                    },
+                    function (error) {
+                        alert('Geolocation failed: ' + error.message);
+                    }
+                );
+            } else {
+                alert('Geolocation is not supported by your browser.');
+            }
+        }
+
+        // Button to trigger geolocation
+        var geoButton = document.createElement("button");
+        geoButton.innerText = "Find My Location";
+        geoButton.style.position = "absolute";
+        geoButton.style.top = "10px";
+        geoButton.style.left = "10px";
+        geoButton.style.zIndex = "1000";
+        geoButton.onclick = locateUser;
+        document.body.appendChild(geoButton);
     </script>
 </body>
 {% endblock %}
