@@ -4,13 +4,6 @@
 
 {% block body %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Map Integration</title>
-    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
-</head>
-
 <body>
     <div id="map" style="height: 500px;"></div>
 
@@ -21,21 +14,21 @@
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '&copy; OpenStreetMap contributors'
         }).addTo(map);
-        
+
         // Markers and line
         var userMarker = null;
         var destinationMarker = null;
         var distanceLine = null;
-        
+
         // Function to locate the user
         function locateUser() {
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(
-                    function(position) {
+                    function (position) {
                         var userLat = position.coords.latitude;
                         var userLng = position.coords.longitude;
                         var userCoords = L.latLng(userLat, userLng);
-        
+
                         // Add or update the user marker
                         if (userMarker) {
                             userMarker.setLatLng(userCoords);
@@ -49,11 +42,11 @@
                                 })
                             }).addTo(map).bindPopup('You are here').openPopup();
                         }
-        
+
                         // Center map on user's location
                         map.setView(userCoords, 13);
                     },
-                    function(error) {
+                    function (error) {
                         alert('Geolocation failed: ' + error.message);
                     }
                 );
@@ -61,37 +54,37 @@
                 alert('Geolocation is not supported by your browser.');
             }
         }
-        
+
         // Function to calculate distance and draw a line
-        map.on('click', function(e) {
+        map.on('click', function (e) {
             if (!userMarker) {
                 alert("Please allow geolocation first!");
                 return;
             }
-        
+
             var destinationCoords = e.latlng;
-        
+
             // Add or update the destination marker
             if (destinationMarker) {
                 destinationMarker.setLatLng(destinationCoords);
             } else {
                 destinationMarker = L.marker(destinationCoords).addTo(map);
             }
-        
+
             // Calculate distance in meters
             var distance = userMarker.getLatLng().distanceTo(destinationCoords);
-        
+
             // Draw a line between user and destination
             if (distanceLine) {
                 distanceLine.setLatLngs([userMarker.getLatLng(), destinationCoords]);
             } else {
                 distanceLine = L.polyline([userMarker.getLatLng(), destinationCoords], { color: 'blue', weight: 3 }).addTo(map);
             }
-        
+
             // Show distance in a dynamic popup
             destinationMarker.bindPopup('Distance from you: ' + distance.toFixed(2) + ' meters').openPopup();
         });
-        
+
         // Add "Find My Location" button
         var geoButton = document.createElement("button");
         geoButton.innerText = "Find My Location";
@@ -101,7 +94,7 @@
         geoButton.style.zIndex = "1000";
         geoButton.onclick = locateUser;
         document.body.appendChild(geoButton);
-        
+
     </script>
 </body>
 {% endblock %}
