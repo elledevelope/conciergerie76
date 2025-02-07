@@ -1,0 +1,17 @@
+## Installation et démarrage du projet Symfony
+
+### Création d'un nouveau projet Symfony
+```sh
+symfony new --webapp conciergerie76
+```
+
+### Configuration de la base de données
+Dans le fichier `.env`, ajoutez le lien de connexion à la base de données :
+```sh
+DATABASE_URL="mysql://root:@127.0.0.1:3306/conciergerie76"
+```
+
+### Démarrage du serveur Symfony
+```sh
+symfony.exe server:start
+```
