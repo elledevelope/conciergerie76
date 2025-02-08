@@ -2,34 +2,33 @@
 
 namespace App\Controller;
 
+use App\Repository\DrinkingWaterNodeRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
-use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Session\SessionInterface;
-
 final class MapController extends AbstractController
 {
     #[Route('/map', name: 'app_map')]
-    public function index(): Response
+    public function index(DrinkingWaterNodeRepository $repository): Response
     {
-        return $this->render('map/index.html.twig', [
-            'controller_name' => 'MapController',
-        ]);
-    }
+        // Fetch all drinking water nodes from the database
+        $nodes = $repository->findAll();
 
-    #[Route('/set-location', name: 'set_location', methods: ['POST'])]
-    public function setLocation(Request $request, SessionInterface $session): JsonResponse
-    {
-        $data = json_decode($request->getContent(), true);
-        if (isset($data['latitude']) && isset($data['longitude'])) {
-            $session->set('user_latitude', $data['latitude']);
-            $session->set('user_longitude', $data['longitude']);
-            return new JsonResponse(['status' => 'success']);
+        // Extract coordinates and other necessary data to pass to the Twig template
+        $nodeData = [];
+        foreach ($nodes as $node) {
+            $nodeData[] = [
+                'lat' => $node->getLat(),
+                'lon' => $node->getLon(),
+                'name' => $node->getName(),
+            ];
         }
 
-        return new JsonResponse(['status' => 'error'], 400);
+        return $this->render('map/index.html.twig', [
+            'controller_name' => 'MapController',
+            'nodes' => $nodeData, // Pass the nodes data to the template
+        ]);
     }
 }
+
