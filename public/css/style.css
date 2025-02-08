@@ -59,12 +59,10 @@ header .hero-image {
   font-weight: bold;
 }
 
-
-
 .gallery-section h2 span {
   background-color: #e6c8447d;
-  border-radius: 5px; 
-  display: inline-block; 
+  border-radius: 5px;
+  display: inline-block;
   transform: rotate(-3deg);
 }
 
@@ -120,6 +118,24 @@ ul {
 footer ul {
   color: var(--white-color);
   font-size: 12px;
+  list-style: none;
+  cursor: pointer;
+}
+
+footer ul {
+  color: var(--white-color);
+  font-size: 12px;
+  list-style: none;
+}
+
+footer ul a {
+  color: var(--white-color);
+  text-decoration: none;
+}
+
+footer ul a:hover {
+  color: var(--yellow-color);
+
 }
 
 footer p {
