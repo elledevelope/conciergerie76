@@ -30,4 +30,3 @@ Le projet utilise **Leaflet.js**, une bibliothèque légère et gratuite, recomm
 3️⃣ Une ligne est tracée entre les deux points 📍➡️📍
 4️⃣ Une popup apparaît sur le marqueur de destination affichant la distance en mètres.
 
-

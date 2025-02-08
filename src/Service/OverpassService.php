@@ -1,5 +1,5 @@
 <?php
-// src/Service/OverpassService.php
+
 namespace App\Service;
 
 use App\Entity\DrinkingWaterNode;
@@ -20,7 +20,7 @@ class OverpassService
 
     public function fetchDrinkingWaterNodes(float $minLat, float $minLon, float $maxLat, float $maxLon)
     {
-        // Define the Overpass API URL
+        // Overpass API URL
         $overpassUrl = 'http://overpass-api.de/api/interpreter';
 
         // Overpass query with bounding box, formatted for POST
