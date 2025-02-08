@@ -59,10 +59,13 @@ header .hero-image {
   font-weight: bold;
 }
 
-.gallery-section h2 span {
-  /* text-decoration: underline; */
-  /* color: var(--yellow-color); */
 
+
+.gallery-section h2 span {
+  background-color: #e6c8447d;
+  border-radius: 5px; 
+  display: inline-block; 
+  transform: rotate(-3deg);
 }
 
 .gallery-section .gallery {
@@ -77,7 +80,7 @@ header .hero-image {
   margin-bottom: 30px;
   max-width: 400px;
 
-  
+
 }
 
 .gallery-section .gallery .card .card-text {
@@ -153,74 +156,75 @@ footer p {
     width: 600px;
   }
 
-  
-.bande-sponsors {
-  height: 100px;
-}
+
+  .bande-sponsors {
+    height: 100px;
+  }
+
   .bande-sponsors img {
     width: 60px;
   }
 
-  
-.gallery-section .gallery {
-  display: flex;
-  flex-wrap: nowrap;
-  justify-content: space-evenly;
-  align-items: start;
 
-}
+  .gallery-section .gallery {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-evenly;
+    align-items: start;
 
-.gallery-section .gallery .card {
-  overflow: hidden;
-  margin: 30px;
-  min-width: 300px;
+  }
 
-}
+  .gallery-section .gallery .card {
+    overflow: hidden;
+    margin: 30px;
+    min-width: 300px;
 
-.gallery-section .gallery img {
-  min-width: 410px;
-  max-height: 470px;
-  overflow: hidden;
+  }
 
-}
+  .gallery-section .gallery img {
+    min-width: 410px;
+    max-height: 470px;
+    overflow: hidden;
 
-.gallery-section .gallery .card .card-text {
- min-height: 180px;
-}
+  }
 
-.gallery-section .gallery .card .card-text p {
-  flex-grow: 1;
-  padding: 10px;
-}
+  .gallery-section .gallery .card .card-text {
+    min-height: 180px;
+  }
 
-.btn-link {
-  font-size: 20px;
-  margin-left: auto;
-  margin-bottom: 20px;
-}
+  .gallery-section .gallery .card .card-text p {
+    flex-grow: 1;
+    padding: 10px;
+  }
 
-
-/* FOOTER DESKTOP */
-footer {
-  height: 30vh;
-}
-
-footer .footer {
-  display: flex;
-  justify-content: space-between;
-  width: 90%;
-  margin: auto;
-  margin-top: 40px;
-}
+  .btn-link {
+    font-size: 20px;
+    margin-left: auto;
+    margin-bottom: 20px;
+  }
 
 
+  /* FOOTER DESKTOP */
+  footer {
+    height: 30vh;
+  }
 
-footer ul {
-  font-size: 14px;
-}
+  footer .footer {
+    display: flex;
+    justify-content: space-between;
+    width: 90%;
+    margin: auto;
+    margin-top: 40px;
+  }
 
-footer p {
-  margin-right: 10px;
-  margin-top: 20px;
-}
+
+
+  footer ul {
+    font-size: 14px;
+  }
+
+  footer p {
+    margin-right: 10px;
+    margin-top: 20px;
+  }
 }
