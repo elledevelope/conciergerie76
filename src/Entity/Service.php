@@ -2,11 +2,11 @@
 
 namespace App\Entity;
 
-use App\Repository\ServerRepository;
+use App\Repository\ServiceRepository;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: ServerRepository::class)]
-class Server
+#[ORM\Entity(repositoryClass: ServiceRepository::class)]
+class Service
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
