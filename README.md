@@ -6,6 +6,8 @@ Conciergerie76 est un projet Symfony fonctionnant avec WAMP pour le moment et av
 Pour apporter des modifications, vous devez d'abord forker ce repository.
 
 
+<img src="/screenshots/landing-page.png" alt="screenshot" width="500" height="650"> 
+
 ## Fonctionnalités
 - Page d'accueil avec barre de navigation
 - Intégration de Leaflet et OpenStreetMap pour une carte interactive
