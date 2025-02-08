@@ -1,0 +1,226 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap');
+
+:root {
+  --yellow-color: #e6c744;
+  --white-color: #ffffff;
+  --black-color: #000000;
+  --grey-color: ##c2c8da;
+  --text-color: #333;
+  /* Dark gray text */
+  --font-family: 'Poppins', sans-serif;
+}
+
+main {
+  margin-bottom: 30px;
+}
+
+section {
+  width: 95%;
+  margin: auto;
+}
+
+header {
+  background-color: #d3d3d377;
+  padding: 20px;
+  border-radius: 20px;
+  display: flex;
+}
+
+header h1 {
+  font-weight: bold;
+}
+
+header span {
+  background-color: #e6c744;
+}
+
+header p {
+  padding-right: 20px;
+}
+
+header .hero-image {
+  overflow: hidden;
+}
+
+.bande-sponsors {
+  background-color: var(--yellow-color);
+  height: 80px;
+  margin: 20px 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.bande-sponsors img {
+  width: 30px;
+}
+
+.gallery-section h2 {
+  font-weight: bold;
+}
+
+.gallery-section h2 span {
+  /* text-decoration: underline; */
+  /* color: var(--yellow-color); */
+
+}
+
+.gallery-section .gallery {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+
+}
+
+.gallery-section .gallery .card {
+  overflow: hidden;
+  margin-bottom: 30px;
+  max-width: 400px;
+
+  
+}
+
+.gallery-section .gallery .card .card-text {
+  padding: 10px 20px;
+}
+
+.gallery-section .gallery .card .card-text p {
+  color: gray;
+}
+
+.btn-link {
+  font-size: 20px;
+  margin-left: auto;
+  margin-bottom: 20px;
+}
+
+
+/* FOOTER */
+footer {
+  padding-top: 10px;
+  background-color: var(--black-color);
+  height: 20vh;
+
+}
+
+footer .footer {
+  display: flex;
+  justify-content: space-evenly;
+
+}
+
+footer h3,
+ul {
+  color: var(--white-color);
+}
+
+footer ul {
+  color: var(--white-color);
+  font-size: 12px;
+}
+
+footer p {
+  color: grey;
+  font-size: 11px;
+  text-align: end;
+  margin-right: 10px;
+}
+
+/* Style pour les écrans de 768px de large ou plus (tablettes et ordinateurs) */
+@media (min-width: 768px) {
+
+  nav,
+  section {
+    width: 90%;
+    margin: auto;
+  }
+
+  header {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+  }
+
+  header .hero-title-wrapper {
+    margin-right: auto;
+  }
+
+  header h1 {
+    font-size: 60px;
+  }
+
+  header .hero-image img {
+    width: 600px;
+  }
+
+  
+.bande-sponsors {
+  height: 100px;
+}
+  .bande-sponsors img {
+    width: 60px;
+  }
+
+  
+.gallery-section .gallery {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: space-evenly;
+  align-items: start;
+
+}
+
+.gallery-section .gallery .card {
+  overflow: hidden;
+  margin: 30px;
+  min-width: 300px;
+
+}
+
+.gallery-section .gallery img {
+  min-width: 410px;
+  max-height: 470px;
+  overflow: hidden;
+
+}
+
+.gallery-section .gallery .card .card-text {
+ min-height: 180px;
+}
+
+.gallery-section .gallery .card .card-text p {
+  flex-grow: 1;
+  padding: 10px;
+}
+
+.btn-link {
+  font-size: 20px;
+  margin-left: auto;
+  margin-bottom: 20px;
+}
+
+
+/* FOOTER DESKTOP */
+footer {
+  height: 30vh;
+}
+
+footer .footer {
+  display: flex;
+  justify-content: space-between;
+  width: 90%;
+  margin: auto;
+  margin-top: 40px;
+}
+
+
+
+footer ul {
+  font-size: 14px;
+}
+
+footer p {
+  margin-right: 10px;
+  margin-top: 20px;
+}
+}

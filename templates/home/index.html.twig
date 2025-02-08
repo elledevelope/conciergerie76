@@ -1,20 +1,73 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello HomeController!{% endblock %}
+{% block title %}Conciergerie76{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+<main>
+    <section>
+        <header>
+            <div class="hero-title-wrapper">
+                <h1>EXPLORE <br>
+                    TON <br>
+                    <span>ENVIRON</span> <br>
+                    MENT
+                </h1>
+                <p>Votre concierge personnel</p>
+                <a style="color: white; text-decoration:none" href="#gallery-section">
+                    <button type="button" class="btn btn-dark">
+                        Explorer
+                    </button>
+                </a>
+            </div>
+            
+            <div class="hero-image">
+                <img src="{{ asset('img/hero.png') }}" alt="Hero Image">
+            </div>
+        </header>
+    </section>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+    <div class="bande-sponsors">
+        <div>
+            <img src="{{ asset('icons/mcdonalds.png') }}" alt="mcdonalds">
+        </div>
+        <div>
+            <img src="{{ asset('icons/starbucks.png') }}" alt="starbucks">
+        </div>
+        <div>
+            <img src="{{ asset('icons/amazon.png') }}" alt="amazon">
+        </div>
+    </div>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code>C:/wamp64/www/conciergerie76/src/Controller/HomeController.php</code></li>
-        <li>Your template at <code>C:/wamp64/www/conciergerie76/templates/home/index.html.twig</code></li>
-    </ul>
-</div>
+    <section class="gallery-section" id="gallery-section">
+        <h2>Rechercher de points <span>d'intérêt</span></h2>
+        <div class="gallery">
+            <div class="card">
+                <img src="{{ asset('img/water.jpg') }}" alt="Drinking water">
+                <div class="card-text">
+                    <h2>Fontaines d'eau</h2>
+                    <p>Points d'eau pour remplir votre gourde et vous rafraîchir lors de votre promenade.</p>
+                </div>
+                <button type="button" class="btn btn-link">Voir →</button>
+            </div>
+            <div class="card">
+                <img src="{{ asset('img/park.jpg') }}" alt="Parks">
+                <div class="card-text">
+                    <h2>Parks</h2>
+                    <p>Respirez l'air frais et profitez de la nature dans un park. </p>
+                </div>
+                <button type="button" class="btn btn-link">Se promener →</button>
+            </div>
+            <div class="card">
+                <img src="{{ asset('img/museum.jpg') }}" alt="Museums">
+                <div class="card-text">
+                    <h2>Musées</h2>
+                    <p>Découvrez les trésors cachés des musées et vivez une expérience culturelle enrichissante.</p>
+                </div>
+                <button type="button" class="btn btn-link">Visiter →</button>
+            </div>
+        </div>
+    </section>
+
+
+</main>
 {% endblock %}
