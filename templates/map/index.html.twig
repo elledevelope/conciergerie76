@@ -1,26 +1,33 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello MapController!{% endblock %}
+{% block title %}Map - Find Nearby Services{% endblock %}
 
 {% block body %}
-
 <body>
+    <div>
+        <select id="categoryFilter">
+            <option value="">All</option>
+            <option value="restaurant">Restaurants</option>
+            <option value="parking">Parking</option>
+            <option value="post_office">Post Offices</option>
+        </select>
+
+        <input type="range" id="distanceFilter" min="500" max="10000" step="500" value="5000">
+        <span id="distanceLabel">5 km</span>
+    </div>
+
     <div id="map" style="height: 500px;"></div>
 
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
     <script>
-        var map = L.map('map').setView([49.44313000, 1.09932000], 13); // Rouen: latitude, longitude, and zoom level 
-
+        var map = L.map('map').setView([49.44313000, 1.09932000], 13); // Default: Rouen
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '&copy; OpenStreetMap contributors'
         }).addTo(map);
 
-        // Markers and line
         var userMarker = null;
-        var destinationMarker = null;
-        var distanceLine = null;
+        var servicesMarkers = [];
 
-        // Function to locate the user
         function locateUser() {
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(
@@ -29,7 +36,14 @@
                         var userLng = position.coords.longitude;
                         var userCoords = L.latLng(userLat, userLng);
 
-                        // Add or update the user marker
+                        // Send user location to Symfony backend
+                        fetch('/set-location', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ latitude: userLat, longitude: userLng })
+                        });
+
+                        // Add or update user marker
                         if (userMarker) {
                             userMarker.setLatLng(userCoords);
                         } else {
@@ -43,8 +57,8 @@
                             }).addTo(map).bindPopup('You are here').openPopup();
                         }
 
-                        // Center map on user's location
                         map.setView(userCoords, 13);
+                        fetchServices();
                     },
                     function (error) {
                         alert('Geolocation failed: ' + error.message);
@@ -55,37 +69,35 @@
             }
         }
 
-        // Function to calculate distance and draw a line
-        map.on('click', function (e) {
-            if (!userMarker) {
-                alert("Please allow geolocation first!");
-                return;
-            }
+        function fetchServices() {
+            let category = document.getElementById("categoryFilter").value;
+            let distance = document.getElementById("distanceFilter").value;
 
-            var destinationCoords = e.latlng;
+            fetch(`/get-services?category=${category}&distance=${distance}`)
+                .then(response => response.json())
+                .then(data => {
+                    // Remove old markers
+                    servicesMarkers.forEach(marker => map.removeLayer(marker));
+                    servicesMarkers = [];
 
-            // Add or update the destination marker
-            if (destinationMarker) {
-                destinationMarker.setLatLng(destinationCoords);
-            } else {
-                destinationMarker = L.marker(destinationCoords).addTo(map);
-            }
+                    data.forEach(service => {
+                        let marker = L.marker([service.latitude, service.longitude]).addTo(map)
+                            .bindPopup(`${service.name} (${service.type}) <br> Distance: ${service.distance.toFixed(2)}m <br> <a href="${service.url}" target="_blank">More info</a>`);
+                        servicesMarkers.push(marker);
+                    });
+                })
+                .catch(error => console.error('Error fetching services:', error));
+        }
 
-            // Calculate distance in meters
-            var distance = userMarker.getLatLng().distanceTo(destinationCoords);
+        // Filter controls
+        document.getElementById("distanceFilter").oninput = function () {
+            document.getElementById("distanceLabel").innerText = (this.value / 1000) + " km";
+            fetchServices();
+        };
 
-            // Draw a line between user and destination
-            if (distanceLine) {
-                distanceLine.setLatLngs([userMarker.getLatLng(), destinationCoords]);
-            } else {
-                distanceLine = L.polyline([userMarker.getLatLng(), destinationCoords], { color: 'blue', weight: 3 }).addTo(map);
-            }
+        document.getElementById("categoryFilter").onchange = fetchServices;
 
-            // Show distance in a dynamic popup
-            destinationMarker.bindPopup('Distance from you: ' + distance.toFixed(2) + ' meters').openPopup();
-        });
-
-        // Add "Find My Location" button
+        // "Find My Location" button
         var geoButton = document.createElement("button");
         geoButton.innerText = "Find My Location";
         geoButton.style.position = "absolute";
@@ -94,7 +106,6 @@
         geoButton.style.zIndex = "1000";
         geoButton.onclick = locateUser;
         document.body.appendChild(geoButton);
-
     </script>
 </body>
 {% endblock %}
