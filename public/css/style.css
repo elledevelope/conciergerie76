@@ -1,0 +1,116 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap');
+
+:root {
+  --yellow-color: #e6c744;
+  --white-color: #ffffff;
+  --black-color: #000000;
+  --grey-color: ##c2c8da;
+  --text-color: #333;
+  /* Dark gray text */
+  --font-family: 'Poppins', sans-serif;
+}
+
+
+section {
+  width: 95%;
+  margin: auto;
+}
+
+header {
+  background-color: #d3d3d377;
+  padding: 20px;
+  border-radius: 20px;
+  display: flex;
+}
+
+header h1 {
+  font-weight: bold;
+}
+
+header span {
+  background-color: #e6c744;
+}
+
+header p {
+  padding-right: 20px;
+}
+
+header .hero-image {
+  overflow: hidden;
+}
+
+.bande-sponsors{
+  background-color: var(--yellow-color);
+  height: 80px;
+  margin: 20px 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+.bande-sponsors img {
+  width: 30px;
+}
+
+.gallery-section h2{
+ font-weight: bold;
+}
+
+.gallery-section h2 span{
+/* text-decoration: underline; */
+/* color: var(--yellow-color); */
+
+ }
+
+ .gallery-section .gallery{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+
+ }
+ 
+ .gallery-section .gallery .card {
+  overflow: hidden;
+  margin-bottom:30px;  
+  max-width: 400px;
+ }
+
+ .gallery-section .gallery .card .card-text{
+  padding: 10px 20px;
+ }
+
+ .gallery-section .gallery .card .card-text p{
+ color: gray;
+ }
+
+ .btn-link{
+  font-size: 20px;
+  margin-left: auto;
+  margin-bottom: 20px;
+ }
+
+/* Style pour les écrans de 768px de large ou plus (tablettes et ordinateurs) */
+@media (min-width: 768px) {
+
+  nav, section {
+    width: 90%;
+    margin: auto;
+  }
+
+  header {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+  }
+
+  header .hero-title-wrapper {
+    margin-right: auto;
+  }
+
+  header h1 {
+    font-size: 60px;
+  }
+
+  header .hero-image img {
+   width: 600px;
+  }
+}
