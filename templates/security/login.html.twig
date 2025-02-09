@@ -3,45 +3,61 @@
 {% block title %}Log in!{% endblock %}
 
 {% block body %}
-<div class="container d-flex justify-content-center align-items-center vh-100">
-    <div class="card shadow-lg p-4" style="width: 400px;">
-        <h1 class="h4 mb-3 text-center">Please login</h1>
+{# <div class="container d-flex justify-content-center align-items-center vh-100"> #}
+    {# <div class="card shadow-lg p-4" style="width: 400px;"> #}
 
-        <form method="post">
-            {% if error %}
-            <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-            {% endif %}
+        <main>
+            <section class="form-section">
+                <div class="form-title">
+                    <h1>Connectez-vous</h1>
+                    <p>Connectez-vous pour acceder à votre espace</p>
+                </div>
 
-            {% if app.user %}
-            <div class="alert alert-info text-center">
-                You are logged in as <strong>{{ app.user.userIdentifier }}</strong>,
-                <a href="{{ path('app_logout') }}" class="text-danger">Logout</a>
-            </div>
-            {% endif %}
 
-            <div class="mb-3">
-                <label for="inputEmail" class="form-label">Email</label>
-                <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control"
-                    autocomplete="email" required autofocus>
-            </div>
+                <form method="post">
+                    {% if error %}
+                    <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                    {% endif %}
 
-            <div class="mb-3">
-                <label for="inputPassword" class="form-label">Password</label>
-                <input type="password" name="password" id="inputPassword" class="form-control"
-                    autocomplete="current-password" required>
-            </div>
+                    {% if app.user %}
+                    <div class="alert alert-info text-center">
+                        You are logged in as <strong>{{ app.user.userIdentifier }}</strong>,
+                        <a href="{{ path('app_logout') }}" class="text-danger">Logout</a>
+                    </div>
+                    {% endif %}
 
-            <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+                    <div class="mb-3">
+                        <label for="inputEmail" class="form-label">Email</label>
+                        <input type="email" value="{{ last_username }}" name="email" id="inputEmail"
+                            class="form-control" autocomplete="email" required autofocus>
+                    </div>
 
-            <div class="form-check mb-3">
-                <input class="form-check-input" type="checkbox" name="_remember_me" id="rememberMe">
-                <label class="form-check-label" for="rememberMe">Remember me</label>
-            </div>
+                    <div class="mb-3">
+                        <label for="inputPassword" class="form-label">Password</label>
+                        <input type="password" name="password" id="inputPassword" class="form-control"
+                            autocomplete="current-password" required>
+                    </div>
 
-            <button class="btn btn-primary w-100 btn-lg" type="submit">
-                Sign in
-            </button>
-        </form>
-    </div>
-</div>
+                    <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+
+                    <div class="form-check mb-3">
+                        <input class="form-check-input" type="checkbox" name="_remember_me" id="rememberMe">
+                        <label class="form-check-label" for="rememberMe">Remember me</label>
+                    </div>
+
+                    <button type="submit" class="btn btn-dark w-100 btn-lg connexion-btn">
+                        Connexion
+                    </button>
+
+                    <div class="creerCompte">
+                        <p>Vous n'avez pas de compte?</p><a class="btn btn-link" href={{path("app_register")}}>Créer un
+                            compte.</a>
+                    </div>
+                </form>
+
+            </section>
+        </main>
+        {#
+    </div> #}
+    {# </div> #}
 {% endblock %}
