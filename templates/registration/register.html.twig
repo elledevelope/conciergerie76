@@ -3,34 +3,44 @@
 {% block title %}Sign in!{% endblock %}
 
 {% block body %}
-<div class="container d-flex justify-content-center align-items-center vh-100">
-    <div class="card shadow-lg p-4" style="width: 400px;">
-        <h1 class="h4 mb-3 text-center">Register</h1>
+{# <div class="container d-flex justify-content-center align-items-center vh-100"> #}
+    {# <div class="card shadow-lg p-4" style="width: 400px;"> #}
+        <main>
+            <section class="form-section">
+                <div class="form-title">
+                    <h1>Register</h1>
+                </div>
 
-        {{ form_errors(registrationForm) }}
+                {{ form_errors(registrationForm) }}
 
-        {{ form_start(registrationForm, {'attr': {'class': 'needs-validation', 'novalidate': 'true'}}) }}
+                {{ form_start(registrationForm, {'attr': {'class': 'needs-validation', 'novalidate': 'true'}}) }}
 
-        <div class="mb-3">
-            {{ form_row(registrationForm.email, {'attr': {'class': 'form-control'}}) }}
-        </div>
+                <div class="mb-3">
+                    {{ form_row(registrationForm.email, {'attr': {'class': 'form-control'}}) }}
+                </div>
 
-        <div class="mb-3">
-            {{ form_row(registrationForm.password.first, {'attr': {'class': 'form-control'}}) }}
-        </div>
+                <div class="mb-3">
+                    {{ form_row(registrationForm.password.first, {'attr': {'class': 'form-control'}}) }}
+                </div>
 
-        <div class="mb-3">
-            {{ form_row(registrationForm.password.second, {'attr': {'class': 'form-control'}}) }}
-        </div>
+                <div class="mb-3">
+                    {{ form_row(registrationForm.password.second, {'attr': {'class': 'form-control'}}) }}
+                </div>
 
-        <div class="form-check mb-3">
-            {{ form_widget(registrationForm.agreeTerms, {'attr': {'class': 'form-check-input'}}) }}
-            {{ form_label(registrationForm.agreeTerms, null, {'attr': {'class': 'form-check-label'}}) }}
-        </div>
+                <div class="form-check mb-3">
+                    {{ form_widget(registrationForm.agreeTerms, {'attr': {'class': 'form-check-input'}}) }}
+                    {{ form_label(registrationForm.agreeTerms, null, {'attr': {'class': 'form-check-label'}}) }}
+                </div>
 
-        <button type="submit" class="btn btn-primary w-100 btn-lg">Register</button>
+                <button type="submit" class="btn btn-dark w-100 btn-lg connexion-btn">Créer un compte</button>
 
-        {{ form_end(registrationForm) }}
-    </div>
-</div>
+                <div class="creerCompte">
+                    <p>Vous avez déjà un compte?</p><a class="btn btn-link" href={{path("app_login")}}>Connexion.</a>
+                </div>
+                {{ form_end(registrationForm) }}
+            </section>
+        </main>
+        {#
+    </div> #}
+    {# </div> #}
 {% endblock %}
