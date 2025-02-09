@@ -2,7 +2,7 @@
 
 namespace App\Service;
 
-use App\Entity\DrinkingWaterNode;
+use App\Entity\Service;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
@@ -47,14 +47,17 @@ class OverpassService
 
             // Iterate over the nodes and store them in the database
             foreach ($nodes as $nodeData) {
-                $node = new DrinkingWaterNode();
-                $node->setLat($nodeData['lat']);
-                $node->setLon($nodeData['lon']);
-                $node->setName($nodeData['tags']['name'] ?? null);
-
-                // Persist the node in the database
-                $this->entityManager->persist($node);
+                $service = new Service();
+                $service->setLatitude($nodeData['lat']);
+                $service->setLongitude($nodeData['lon']);
+                $service->setName($nodeData['tags']['name'] ?? 'Drinking Water');
+                $service->setType('drinking_water'); // Define service type
+                $service->setUrl(null); // Optional, modify if Overpass provides a URL
+            
+                // Persist the service in the database
+                $this->entityManager->persist($service);
             }
+            
 
             // Commit the changes to the database
             $this->entityManager->flush();
