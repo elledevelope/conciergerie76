@@ -1,37 +1,45 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello PlaceController!{% endblock %}
+{% block title %}Parcs et promenades{% endblock %}
 
 {% block body %}
-{# templates/place/list.html.twig #}
 
-<!DOCTYPE html>
-
-{# <h1>List of {{ category }}</h1> #}
 <h1>List of {{ type }}</h1>
 
-
-{% for place in places %}
 <table class="table table-hover">
     <thead>
-        {# <tr>
+        <tr>
+            <th scope="col">Image</th>
             <th scope="col">Name</th>
             <th scope="col">Address</th>
             <th scope="col">Téléphone</th>
             <th scope="col">URL</th>
-        </tr> #}
+        </tr>
     </thead>
     <tbody>
+        {% for place in places %}
         <tr class="table-warning">
+            <td>
+                {% if place.img %}
+                    <img src="{{ place.img }}" alt="{{ place.name }}"
+                        style="width: 100px; height: 100px; object-fit: cover;">
+                {% else %}
+                    <!-- If there's no image, leave the field empty or use a placeholder image -->
+                    <!-- For example, a simple placeholder: -->
+                    {# <span>No image available</span> #}
+                {% endif %}
+            </td>
             <th scope="row">{{ place.name }}</th>
             <td>{{ place.address }}</td>
             <td>{{ place.phone ? place.phone : 'N/A' }}</td>
-            <td> <a href="{{ place.url }}" target="_blank">More details</a></td>
+            <td><a href="{{ place.url }}" target="_blank">More details</a></td>
         </tr>
+        {% else %}
+        <tr>
+            <td colspan="5">No {{ type }} found.</td>
+        </tr>
+        {% endfor %}
     </tbody>
-    {% else %}
-    <p>No {{ type }} found.</p>
-    {% endfor %}
 </table>
 
 {% endblock %}

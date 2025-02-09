@@ -112,6 +112,23 @@ class ScrapeDataCommand extends Command
 
 
 
+                // ------------ IMAGE (first image inside the div with class "field-item")
+                $imageNode = $placeXpath->query('//div[contains(@class, "field-item")]//img'); // Get the first image inside the div with class 'field-item'
+                $firstImageUrl = null;
+
+                if ($imageNode->length > 0) {
+                    $firstImageUrl = $imageNode->item(0)->getAttribute('src');  // Get the 'src' attribute of the image
+
+                    // Ensure the image URL is absolute
+                    if (strpos($firstImageUrl, 'http') !== 0) {
+                        $firstImageUrl = rtrim('https://rouen.fr', '/') . $firstImageUrl;
+                    }
+                }
+
+                // Debugging output for the first image URL
+                echo "First Image for $name: $firstImageUrl\n";
+
+
                 // Debugging output for the scraped data
                 echo "Scraped Data: $name, $address, $phone, $url\n";
 
@@ -122,6 +139,10 @@ class ScrapeDataCommand extends Command
                 $placeEntity->setPhone($phone);
                 $placeEntity->setUrl($url);
                 $placeEntity->setType('parc'); // Automatically set 'parc' as the type for this place
+                // If you want to store the first image URL in your database
+                if ($firstImageUrl) {
+                    $placeEntity->setImg($firstImageUrl);
+                }
 
                 // Persist the entity
                 $this->entityManager->persist($placeEntity);
