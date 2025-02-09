@@ -121,6 +121,7 @@ class ScrapeDataCommand extends Command
                 $placeEntity->setAddress($address);
                 $placeEntity->setPhone($phone);
                 $placeEntity->setUrl($url);
+                $placeEntity->setType('parc'); // Automatically set 'parc' as the type for this place
 
                 // Persist the entity
                 $this->entityManager->persist($placeEntity);
