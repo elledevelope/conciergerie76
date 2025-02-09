@@ -3,9 +3,35 @@
 {% block title %}Parcs et promenades{% endblock %}
 
 {% block body %}
-
 <h1>List of {{ type }}</h1>
 
+<!-- Include Leaflet.js library -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+<!-- Map container with smaller size -->
+<div id="map" style="height: 300px; width: 100%;"></div>
+
+<script>
+    // Initialize the map with default center (Rouen)
+    var map = L.map('map').setView([49.4431300, 1.0993200], 13);
+
+    // Set the map tile layer from OpenStreetMap
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map);
+
+    // Loop through each park in the places array and add markers to the map
+    {% for place in places %}
+        {% if place.latitude and place.longitude %}
+            L.marker([{{ place.latitude }}, {{ place.longitude }}])
+                .addTo(map)
+                .bindPopup('<b>{{ place.name }}</b><br>{{ place.address ? place.address : "No address available" }}');
+        {% endif %}
+    {% endfor %}
+</script>
+
+<!-- List of parks under the map -->
 <table class="table table-hover">
     <thead>
         <tr>
@@ -21,12 +47,9 @@
         <tr class="table-warning">
             <td>
                 {% if place.img %}
-                    <img src="{{ place.img }}" alt="{{ place.name }}"
-                        style="width: 100px; height: 100px; object-fit: cover;">
+                    <img src="{{ place.img }}" alt="{{ place.name }}" style="width: 100px; height: 100px; object-fit: cover;">
                 {% else %}
-                    <!-- If there's no image, leave the field empty or use a placeholder image -->
-                    <!-- For example, a simple placeholder: -->
-                    {# <span>No image available</span> #}
+                    <span>No image available</span>
                 {% endif %}
             </td>
             <th scope="row">{{ place.name }}</th>
