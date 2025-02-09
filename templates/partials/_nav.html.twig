@@ -7,32 +7,45 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarColor03">
             <ul class="navbar-nav me-auto">
-                <li class="nav-item">
+                {# <li class="nav-item">
                     <a class="nav-link active" href={{path('app_home')}}>Home
                         <span class="visually-hidden">(current)</span>
                     </a>
+                </li> #}
+                <li class="nav-item">
+                    <a class="nav-link" href={{path("app_home")}}>Services</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href={{path("app_map")}}>Map</a>
                 </li>
 
+
                 {# User #}
                 {% if app.user %}
-                <li class="nav-item">
-                    <a class="nav-link" href={{path("app_home")}}>Rechercher un service</a>
-                </li>
+                <ul class="navbar-nav">        
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path("app_home") }}">Rechercher un service</a>
+                        </li>              
+               
+                        <li style="color: gray;" class="nav-item">
+                            {# Hello, {{ app.user.email }} #}
+                            <a class="nav-link" href="{{ path("app_home") }}">Mon compte</a>
+                        </li>
 
-                <li class="nav-item">
-                    <a class="nav-link" href={{path("app_logout")}}>Logout</a>
-                </li>
+                        <li class="nav-item">
+                            <a type="button" class="btn btn-dark" href="{{ path("app_logout") }}">Logout</a>
+                        </li>       
+                </ul>
+
                 {% else %}
-
-                <li class="nav-item">
-                    <a class="nav-link" href={{path("app_login")}}>Login</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href={{path("app_register")}}>Sing in</a>
-                </li>
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path(" app_login") }}">Login</a>
+                    </li>
+                    {# <li class="nav-item">
+                        <a class="nav-link" href="{{ path(" app_register") }}">Sign in</a>
+                    </li> #}
+                </ul>
                 {% endif %}
 
             </ul>
