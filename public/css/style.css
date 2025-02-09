@@ -242,7 +242,13 @@ p {
     margin-bottom: 20px;
   }
 
+  /* NAV DESKTOP */
 
+.nav-user-ul{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
   /* FOOTER DESKTOP */
   footer {
     height: 30vh;
