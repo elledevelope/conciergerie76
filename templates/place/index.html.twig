@@ -41,7 +41,7 @@
             <th scope="col">Téléphone</th>
             <th scope="col">URL</th>
         </tr>
-    </thead>
+   </thead> 
     <tbody>
         {% for place in places %}
         <tr class="table-warning">
@@ -49,7 +49,7 @@
                 {% if place.img %}
                     <img src="{{ place.img }}" alt="{{ place.name }}" style="width: 100px; height: 100px; object-fit: cover;">
                 {% else %}
-                    <span>No image available</span>
+                {# <span>No image available</span>#}
                 {% endif %}
             </td>
             <th scope="row">{{ place.name }}</th>
