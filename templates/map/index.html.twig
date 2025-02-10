@@ -1,104 +1,75 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello MapController!{% endblock %}
+{% block title %}Map of Points of Interest{% endblock %}
 
 {% block body %}
-    <div id="map" style="height: 500px;"></div>
+    <div class="container mt-4">
+        <h1 class="text-center mb-4">Points of Interest in Rouen</h1>
 
+        <!-- Map Container -->
+        <div id="map" class="rounded shadow-sm" style="height: 500px; margin-bottom: 20px;"></div>
+
+        <!-- List of Places -->
+        <h2 class="mt-4">List of Places</h2>
+        <div class="table-responsive">
+            <table class="table table-striped table-bordered">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Name</th>
+                        <th>Type</th>
+                        <th>Address</th>
+                        <th>Website</th>
+                        <th>Phone</th>
+                    </tr>
+                </thead>
+                <tbody id="places-list">
+                    <tr>
+                        <td colspan="5" class="text-center">Loading places...</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Leaflet.js & Bootstrap -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
     <script>
-        var map = L.map('map').setView([49.44313000, 1.09932000], 13); // Rouen: latitude, longitude, and zoom level
+        var map = L.map('map').setView([49.4431, 1.0993], 13);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
 
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '&copy; OpenStreetMap contributors'
-        }).addTo(map);
+        fetch('/api/services') // Fetching POIs from Symfony API
+            .then(response => response.json())
+            .then(data => {
+                let placesList = document.getElementById('places-list');
+                placesList.innerHTML = ''; // Clear placeholder text
 
-        // Markers and line
-        var userMarker = null;
-        var destinationMarker = null;
-        var distanceLine = null;
+                data.forEach(service => {
+                    // Add marker to map
+                    L.marker([service.latitude, service.longitude])
+                        .addTo(map)
+                        .bindPopup(`<b>${service.name}</b><br>${service.type}`);
 
-        // Function to locate the user
-        function locateUser() {
-            if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(
-                    function (position) {
-                        var userLat = position.coords.latitude;
-                        var userLng = position.coords.longitude;
-                        var userCoords = L.latLng(userLat, userLng);
-
-                        // Add or update the user marker
-                        if (userMarker) {
-                            userMarker.setLatLng(userCoords);
-                        } else {
-                            userMarker = L.marker(userCoords, {
-                                icon: L.icon({
-                                    iconUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon.png',
-                                    iconSize: [25, 41],
-                                    iconAnchor: [12, 41],
-                                    popupAnchor: [1, -34]
-                                })
-                            }).addTo(map).bindPopup('You are here').openPopup();
-                        }
-
-                        // Center map on user's location
-                        map.setView(userCoords, 13);
-                    },
-                    function (error) {
-                        alert('Geolocation failed: ' + error.message);
-                    }
-                );
-            } else {
-                alert('Geolocation is not supported by your browser.');
-            }
-        }
-
-        // Function to calculate distance and draw a line
-        map.on('click', function (e) {
-            if (!userMarker) {
-                alert("Please allow geolocation first!");
-                return;
-            }
-
-            var destinationCoords = e.latlng;
-
-            // Add or update the destination marker
-            if (destinationMarker) {
-                destinationMarker.setLatLng(destinationCoords);
-            } else {
-                destinationMarker = L.marker(destinationCoords).addTo(map);
-            }
-
-            // Calculate distance in meters
-            var distance = userMarker.getLatLng().distanceTo(destinationCoords);
-
-            // Draw a line between user and destination
-            if (distanceLine) {
-                distanceLine.setLatLngs([userMarker.getLatLng(), destinationCoords]);
-            } else {
-                distanceLine = L.polyline([userMarker.getLatLng(), destinationCoords], { color: 'blue', weight: 3 }).addTo(map);
-            }
-
-            // Show distance in a dynamic popup
-            destinationMarker.bindPopup('Distance from you: ' + distance.toFixed(2) + ' meters').openPopup();
-        });
-
-        // Add "Find My Location" button
-        var geoButton = document.createElement("button");
-        geoButton.innerText = "Find My Location";
-        geoButton.style.position = "absolute";
-        geoButton.style.top = "10px";
-        geoButton.style.left = "10px";
-        geoButton.style.zIndex = "1000";
-        geoButton.onclick = locateUser;
-        document.body.appendChild(geoButton);
-
-        // Add markers for each drinking water node from the database
-        {% for node in nodes %}
-            L.marker([{{ node.lat }}, {{ node.lon }}])
-                .addTo(map)
-                .bindPopup('{{ node.name }}')
-                .openPopup();
-        {% endfor %}
+                    // Add service to table with clickable name
+                    let row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td><a href="/place/${service.id}">${service.name}</a></td>
+                        <td>${service.type}</td>
+                        <td>${service.address ? service.address : 'No address available'}</td>
+                        <td>${service.website ? `<a href="${service.website}" target="_blank">Visit</a>` : 'No website'}</td>
+                        <td>${service.phone || 'No phone'}</td>
+                    `;
+                    placesList.appendChild(row);
+                });
+            })
+            .catch(error => {
+                console.error('Error loading data:', error);
+                document.getElementById('places-list').innerHTML = `
+                    <tr><td colspan="5" class="text-center text-danger">Error loading places.</td></tr>
+                `;
+            });
     </script>
 {% endblock %}

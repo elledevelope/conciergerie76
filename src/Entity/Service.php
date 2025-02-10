@@ -25,8 +25,14 @@ class Service
     #[ORM\Column]
     private ?float $longitude = null;
 
-    #[ORM\Column(length: 500, nullable: true)]
-    private ?string $url = null;
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $phone = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $website = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $address = null;
 
     public function getId(): ?int
     {
@@ -81,14 +87,38 @@ class Service
         return $this;
     }
 
-    public function getUrl(): ?string
+    public function getPhone(): ?string
     {
-        return $this->url;
+        return $this->phone;
     }
 
-    public function setUrl(?string $url): static
+    public function setPhone(?string $phone): static
     {
-        $this->url = $url;
+        $this->phone = $phone;
+
+        return $this;
+    }
+
+    public function getWebsite(): ?string
+    {
+        return $this->website;
+    }
+
+    public function setWebsite(?string $website): static
+    {
+        $this->website = $website;
+
+        return $this;
+    }
+
+    public function getAddress(): ?string
+    {
+        return $this->address;
+    }
+
+    public function setAddress(?string $address): static
+    {
+        $this->address = $address;
 
         return $this;
     }

@@ -2,15 +2,14 @@
 
 namespace App\Service;
 
-use App\Entity\Service;
-use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
-use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
+use Doctrine\ORM\EntityManagerInterface;
+use App\Entity\Service;
 
 class OverpassService
 {
-    private $httpClient;
-    private $entityManager;
+    private HttpClientInterface $httpClient;
+    private EntityManagerInterface $entityManager;
 
     public function __construct(HttpClientInterface $httpClient, EntityManagerInterface $entityManager)
     {
@@ -18,54 +17,58 @@ class OverpassService
         $this->entityManager = $entityManager;
     }
 
-    public function fetchDrinkingWaterNodes(float $minLat, float $minLon, float $maxLat, float $maxLon)
+    public function fetchAndStoreData()
     {
-        // Overpass API URL
-        $overpassUrl = 'http://overpass-api.de/api/interpreter';
-
-        // Overpass query with bounding box, formatted for POST
-        $query = sprintf(
-            '[out:json];node[amenity=drinking_water](%f,%f,%f,%f);out;',
-            $minLat,
-            $minLon,
-            $maxLat,
-            $maxLon
+        $overpassQuery = <<<'EOT'
+        [out:json];
+        area[name="Rouen"]->.searchArea;
+        (
+          node["amenity"="cafe"](area.searchArea);
+          node["tourism"="museum"](area.searchArea);
+          node["leisure"="park"](area.searchArea);
         );
+        out body;
+        EOT;
 
-        try {
-            // Send the query using the POST method (sending the query in the body)
-            $response = $this->httpClient->request('POST', $overpassUrl, [
-                'headers' => ['Content-Type' => 'application/x-www-form-urlencoded'],
-                'body' => ['data' => $query]
-            ]);
+        $url = "https://overpass-api.de/api/interpreter?data=" . urlencode($overpassQuery);
+        $response = $this->httpClient->request('GET', $url);
+        $data = $response->toArray();
 
-            // Convert the JSON response to an array
-            $data = $response->toArray();
+        foreach ($data['elements'] as $element) {
+            $name = $element['tags']['name'] ?? 'Unknown';
+            $type = $this->getTypeFromTags($element['tags']);
+            $latitude = $element['lat'];
+            $longitude = $element['lon'];
+            $phone = $element['tags']['phone'] ?? null;
+            $website = $element['tags']['website'] ?? null;
+            $address = $element['tags']['addr:street'] ?? null;
 
-            // Get the nodes from the response
-            $nodes = $data['elements'] ?? [];
+            $service = new Service();
+            $service->setName($name);
+            $service->setType($type);
+            $service->setLatitude($latitude);
+            $service->setLongitude($longitude);
+            $service->setPhone($phone);
+            $service->setWebsite($website);
+            $service->setAddress($address);
 
-            // Iterate over the nodes and store them in the database
-            foreach ($nodes as $nodeData) {
-                $service = new Service();
-                $service->setLatitude($nodeData['lat']);
-                $service->setLongitude($nodeData['lon']);
-                $service->setName($nodeData['tags']['name'] ?? 'Drinking Water');
-                $service->setType('drinking_water'); // Define service type
-                $service->setUrl(null); // Optional, modify if Overpass provides a URL
-            
-                // Persist the service in the database
-                $this->entityManager->persist($service);
-            }
-            
-
-            // Commit the changes to the database
-            $this->entityManager->flush();
-
-        } catch (TransportExceptionInterface $e) {
-            // Handle the exception if the request fails
-            // You can log it or return an error response
-            throw new \RuntimeException('Error during Overpass API request: ' . $e->getMessage());
+            $this->entityManager->persist($service);
         }
+
+        $this->entityManager->flush();
+    }
+
+    private function getTypeFromTags(array $tags): string
+    {
+        if (isset($tags['amenity'])) {
+            return $tags['amenity'];
+        }
+        if (isset($tags['tourism'])) {
+            return $tags['tourism'];
+        }
+        if (isset($tags['leisure'])) {
+            return $tags['leisure'];
+        }
+        return 'unknown';
     }
 }
