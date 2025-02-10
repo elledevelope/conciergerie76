@@ -163,11 +163,18 @@ footer p {
   margin-top: 20px;
 }
 
+
 .form-section .creerCompte a,
 p {
   font-size: 14px;
   text-align: left;
   display: inline;
+}
+
+/* ------------------------ ITEM PAGE */
+main .item-page {
+  height: 65vh;
+  margin-top: 40px;
 }
 
 
@@ -244,11 +251,12 @@ p {
 
   /* NAV DESKTOP */
 
-.nav-user-ul{
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
+  .nav-user-ul {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
   /* FOOTER DESKTOP */
   footer {
     height: 30vh;
@@ -280,6 +288,13 @@ p {
   .form-section .form-title {
     display: flex;
     flex-direction: column;
+  }
+
+  /* ------------------------ ITEM PAGE */
+  main .item-page {
+    width: 70%;
+    margin: auto;
+    margin-top: 40px;
   }
 
 }
