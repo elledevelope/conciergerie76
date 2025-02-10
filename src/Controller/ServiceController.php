@@ -97,4 +97,10 @@ class ServiceController extends AbstractController
             'type' => 'Parks',
         ]);
     }
+
+    #[Route('/services', name: 'app_services')]
+    public function services(): Response
+    {
+        return $this->render('service/gallery.html.twig');
+    }
 }

@@ -1,60 +1,14 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Conciergerie76{% endblock %}
+{% block title %}Services{% endblock %}
 
 {% block body %}
 <main>
-    <section>
-        {# Header #}
-        <header>
-            <div class="hero-title-wrapper">
-                <h1>EXPLORE <br>
-                    TON <br>
-                    <span>ENVIRON</span> <br>
-                    MENT
-                </h1>
-                <p>Votre concierge personnel</p><br>
-                <a style="color: white; text-decoration:none" href="#gallery-section">
-                    <button type="button" class="btn btn-dark">
-                        Explorer
-                    </button>
-                </a>
-            </div>
-
-            <div class="hero-image">
-                <img src="{{ asset('img/hero.png') }}" alt="Hero Image">
-            </div>
-        </header>
-    </section>
-
-    {# Sponsors #}
-    <div class="bande-sponsors">
-        <div>
-            <img src="{{ asset('icons/mcdonalds.png') }}" alt="mcdonalds">
-        </div>
-        <div>
-            <img src="{{ asset('icons/starbucks.png') }}" alt="starbucks">
-        </div>
-        <div>
-            <img src="{{ asset('icons/amazon.png') }}" alt="amazon">
-        </div>
-    </div>
-
     {# Gallery #}
     <section class="gallery-section">
-        <h2>Rechercher de points <span>d'intérêt</span></h2>
+        <h2 style="text-align: center;">Rechercher de points <span>d'intérêt</span></h2>
         <div class="gallery">
             <div class="row">
-                {# Fontaines #}
-                {# <div class="card">
-                    <img src="{{ asset('img/water.jpg') }}" alt="Drinking water">
-                    <div class="card-text">
-                        <h2>Fontaines d'eau</h2>
-                        <p>Points d'eau pour remplir votre gourde et vous rafraîchir lors de votre promenade.</p>
-                    </div>
-                    <button type="button" class="btn btn-link">Trouver →</button>
-                </div> #}
-
                 {# Cafe #}
                 <div class="col-md-4">
                     <div class="card">
@@ -92,12 +46,6 @@
                     </div>
                 </div>
             </div>
-
-            <!-- Bouton "Voir plus" -->
-        </div>
-        <div class="btn-voir-plus">
-            <a type="button" class="btn btn-outline-dark" href={{path("app_services")}}>Voir plus</a>
-        </div>
     </section>
 </main>
 {% endblock %}

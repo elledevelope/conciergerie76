@@ -56,8 +56,16 @@ header .hero-image {
   width: 30px;
 }
 
+/* ---------------- Gallery */
+.gallery-section {
+  padding: 40px 0;
+}
 .gallery-section h2 {
   font-weight: bold;
+  font-size: 2rem;
+}
+.gallery-section .row{
+  margin: auto;
 }
 
 .gallery-section h2 span {
@@ -65,21 +73,26 @@ header .hero-image {
   border-radius: 5px;
   display: inline-block;
   transform: rotate(-3deg);
+
+  font-size: 2rem;
+  margin-bottom: 30px;
 }
 
 .gallery-section .gallery {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-
 }
 
 .gallery-section .gallery .card {
   overflow: hidden;
   margin-bottom: 30px;
   max-width: 400px;
+  transition: transform 0.3s ease-in-out;
+}
 
-
+.card:hover {
+  transform: scale(1.05);
 }
 
 .gallery-section .gallery .card .card-text {
@@ -96,6 +109,10 @@ header .hero-image {
   margin-bottom: 20px;
 }
 
+.btn-voir-plus {
+  display: flex;
+  justify-content: center;
+}
 
 /* ------------------------ FOOTER */
 footer {
@@ -215,6 +232,7 @@ main .item-page {
     width: 60px;
   }
 
+  /* Gallery desktop */
   .gallery-section .gallery {
     display: flex;
     flex-wrap: nowrap;
@@ -229,18 +247,14 @@ main .item-page {
   }
 
   .gallery-section .gallery img {
-    min-width: 410px;
+    /* min-width: 410px; */
     max-height: 470px;
+    min-height: 470px;
     overflow: hidden;
   }
 
   .gallery-section .gallery .card .card-text {
     min-height: 180px;
-  }
-
-  .gallery-section .gallery .card .card-text p {
-    flex-grow: 1;
-    padding: 10px;
   }
 
   .btn-link {
