@@ -16,8 +16,12 @@ class ServiceController extends AbstractController
 
         $data = array_map(function ($service) {
             return [
+                'id' => $service->getId(),
                 'name' => $service->getName(),
                 'type' => $service->getType(),
+                'address' => $service->getAddress(),
+                'phone' => $service->getPhone(),
+                'website' => $service->getWebsite(),
                 'latitude' => $service->getLatitude(),
                 'longitude' => $service->getLongitude(),
             ];
