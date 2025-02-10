@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Service;
+use App\Entity\Place;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -15,6 +16,36 @@ class ServiceRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Service::class);
     }
+
+        /**
+     * @return Service[] Returns an array of Service objects
+     */
+    public function findAllPlaces(): array
+    {
+        return $this->createQueryBuilder('s')
+            ->orderBy('s.name', 'ASC') // Order by name alphabetically
+            ->getQuery()
+            ->getResult();
+    }
+    
+    // public function findByType(string $type): array
+    // {
+    //     return $this->createQueryBuilder('s')
+    //         ->andWhere('s.type = :type')
+    //         ->setParameter('type', $type)
+    //         ->getQuery()
+    //         ->getResult();
+    // }
+    
+//     public function searchByName(string $query): array
+// {
+//     return $this->createQueryBuilder('s')
+//         ->andWhere('s.name LIKE :query')
+//         ->setParameter('query', '%' . $query . '%')
+//         ->getQuery()
+//         ->getResult();
+// }
+
 
     //    /**
     //     * @return Service[] Returns an array of Service objects

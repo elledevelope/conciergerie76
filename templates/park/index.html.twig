@@ -1,0 +1,35 @@
+{# templates/park/index.html.twig #}
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Parcs et promenades{% endblock %}
+
+{% block body %}
+<h1>List of Parks</h1>
+
+<!-- Include Leaflet.js library -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+<!-- Map container -->
+<div id="map" style="height: 500px;"></div>
+
+<script>
+    // Initialize the map
+    var map = L.map('map').setView([48.8566, 2.3522], 13); // Default center (e.g., Paris)
+
+    // Set the map tile layer
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map);
+
+    // Loop through the places passed from the controller and add markers
+    {% for place in places %}
+        {% if place.latitude and place.longitude %}
+            L.marker([{{ place.latitude }}, {{ place.longitude }}])
+                .addTo(map)
+                .bindPopup('<b>{{ place.name }}</b>');
+        {% endif %}
+    {% endfor %}
+</script>
+{% endblock %}
