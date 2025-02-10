@@ -60,11 +60,13 @@ header .hero-image {
 .gallery-section {
   padding: 40px 0;
 }
+
 .gallery-section h2 {
   font-weight: bold;
   font-size: 2rem;
 }
-.gallery-section .row{
+
+.gallery-section .row {
   margin: auto;
 }
 
@@ -194,6 +196,17 @@ main .item-page {
   margin-top: 40px;
 }
 
+/* ------------------------ /map */
+.list-places-a {
+  text-decoration: none;
+  color: black;
+
+}
+
+.list-places-a:hover {
+  text-decoration: underline;
+
+}
 
 /* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
 /* MEDIA QUERY - Style pour les écrans de 768px de large ou plus (tablettes et ordinateurs) */
