@@ -3,3 +3,14 @@ controllers:
         path: ../src/Controller/
         namespace: App\Controller
     type: attribute
+app_cafe:
+    path: /cafe
+    controller: App\Controller\ServiceController::showCafes
+
+app_museum:
+    path: /museum
+    controller: App\Controller\ServiceController::showMuseums
+
+app_park:
+    path: /park
+    controller: App\Controller\ServiceController::showParks

@@ -3,30 +3,52 @@
 {% block title %}{{ service.name }} Details{% endblock %}
 
 {% block body %}
-    <div class="container mt-4">
-        <h1 class="text-center mb-4">{{ service.name }}</h1>
+{# <div class="container mt-4">
+    <h1 class="text-center mb-4">{{ service.name }}</h1>
 
-        <div class="row">
-            <div class="col-md-6">
-                <h3>Details</h3>
-                <p><strong>Type:</strong> {{ service.type }}</p>
-                <p><strong>Address:</strong> {{ service.address ? service.address : 'No address available' }}</p>
-                <p><strong>Phone:</strong> {{ service.phone ? service.phone : 'No phone' }}</p>
-                <p><strong>Website:</strong> {{ service.website ? service.website : 'No website' }}</p>
-            </div>
+    <div class="row">
+        <div class="col-md-6">
+            <h3>Details</h3>
+            <p><strong>Type:</strong> {{ service.type }}</p>
+            <p><strong>Address:</strong> {{ service.address ? service.address : 'No address available' }}</p>
+            <p><strong>Phone:</strong> {{ service.phone ? service.phone : 'No phone' }}</p>
+            <p><strong>Website:</strong> {{ service.website ? service.website : 'No website' }}</p>
+        </div> #}
 
-            <div class="col-md-6">
-                <h3>Location</h3>
-                <div id="place-map" style="height: 300px;"></div>
-            </div>
+        <div class="col-md-6">
+            {# <h3>Location</h3> #}
+            <div id="place-map" style="height: 300px;"></div>
         </div>
+        {#
     </div>
+</div> #}
 
-    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-    <script>
-        var map = L.map('place-map').setView([{{ service.latitude }}, {{ service.longitude }}], 13);
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
-        L.marker([{{ service.latitude }}, {{ service.longitude }}]).addTo(map)
-            .bindPopup("<b>{{ service.name }}</b><br>{{ service.type }}");
-    </script>
+
+<div class="card">
+    <div class="card-body">
+        <h4 class="card-title">{{ service.name }}</h4>
+        <h6 class="card-subtitle mb-2 text-muted">{{ service.type }}</h6>
+        <p class="card-text">
+            📍 {{ service.address ? service.address : 'No address available' }}
+        </p><br>
+        <p class="card-text">
+            📞 {{ service.phone ? service.phone : 'No phone' }}
+        </p><br>
+        {% if service.website %}
+        🌐 <a href="{{ service.website }}" target="_blank" rel="noopener noreferrer">{{ service.website }}</a>
+        {% else %}
+        No website
+        {% endif %}
+    </div>
+</div>
+
+
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+<script>
+    var map = L.map('place-map').setView([{{ service.latitude }}, {{ service.longitude }}], 13);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
+    L.marker([{{ service.latitude }}, {{ service.longitude }}]).addTo(map)
+        .bindPopup("<b>{{ service.name }}</b><br>{{ service.type }}").openPopup();
+</script>
+
 {% endblock %}
