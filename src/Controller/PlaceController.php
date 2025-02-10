@@ -10,45 +10,41 @@ use Symfony\Component\Routing\Attribute\Route;
 
 final class PlaceController extends AbstractController
 {
-    // In your controller, you should pass the services to the template like this
+    // pass $services 
     public function index(ServiceRepository $serviceRepository): Response
     {
-        $services = $serviceRepository->findAll();  // or any other query to get services
+        $services = $serviceRepository->findAll();
 
         return $this->render('place/index.html.twig', [
-            'services' => $services, // Pass the services to the template
+            'services' => $services,
         ]);
     }
 
 
     // Route to display parks
-    #[Route('/parcs', name: 'app_parcs')]
-    public function showParks(PlaceRepository $placeRepository): Response
-    {
-        // Fetch all parks from the database (You may want to filter places by category)
-        $parks = $placeRepository->findBy(['type' => 'parc']);
+    // #[Route('/parcs', name: 'app_parcs')]
+    // public function showParks(PlaceRepository $placeRepository): Response
+    // {
+    //     // Fetch all parks from the database (You may want to filter places by category)
+    //     $parks = $placeRepository->findBy(['type' => 'parc']);
 
-        return $this->render('place/index.html.twig', [
-            'places' => $parks,
-            'type' => 'Parcs',
-        ]);
-    }
+    //     return $this->render('place/index.html.twig', [
+    //         'places' => $parks,
+    //         'type' => 'Parcs',
+    //     ]);
+    // }
 
     #[Route('/place/{id}', name: 'place_show')]
     public function show(int $id, ServiceRepository $serviceRepository): Response
     {
-        // Fetch the service by its ID
         $service = $serviceRepository->find($id);
 
-        // Debug: Output the service object to check if it has the expected data
-        dump($service);  // This will output the service entity in the browser
+        // dump($service);
 
-        // If service is not found, throw a 404 error
         if (!$service) {
             throw $this->createNotFoundException('The place does not exist');
         }
 
-        // Render the template and pass the service data to it
         return $this->render('place/show.html.twig', [
             'service' => $service,
         ]);
