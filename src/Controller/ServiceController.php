@@ -127,7 +127,7 @@ class ServiceController extends AbstractController
 
     // app_cafe
     #[Route('/services/cafe', name: 'app_cafe')]
-    public function showCafe(ServiceRepository $serviceRepository): Response
+    public function showCafes(ServiceRepository $serviceRepository): Response
     {
         return $this->render('service/list.html.twig', [
             'places' => $serviceRepository->findBy(['type' => 'cafe']),
@@ -137,7 +137,7 @@ class ServiceController extends AbstractController
 
     // app_museum
     #[Route('/services/museum', name: 'app_museum')]
-    public function showMuseum(ServiceRepository $serviceRepository): Response
+    public function showMuseums(ServiceRepository $serviceRepository): Response
     {
         return $this->render('service/list.html.twig', [
             'places' => $serviceRepository->findBy(['type' => 'museum']),
@@ -147,7 +147,7 @@ class ServiceController extends AbstractController
 
     // app_park
     #[Route('/services/park', name: 'app_park')]
-    public function showPark(ServiceRepository $serviceRepository): Response
+    public function showParks(ServiceRepository $serviceRepository): Response
     {
         return $this->render('service/list.html.twig', [
             'places' => $serviceRepository->findBy(['type' => 'park']),

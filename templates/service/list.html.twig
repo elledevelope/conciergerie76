@@ -6,6 +6,11 @@
 <div class="container mt-4">
     <h1 class="text-center mb-4">{{ type }} à Rouen</h1>
 
+    <div class="mt-3">
+        <button type="button" class="btn btn-outline-dark" onclick="history.back()">⬅ Revenir à la page
+            précédente</button>
+    </div>
+    <br>
     <!-- Map Container -->
     <div id="map" class="rounded shadow-sm" style="height: 500px; margin-bottom: 20px;"></div>
 
@@ -15,17 +20,20 @@
         <table class="table table-striped table-bordered">
             <tbody>
                 {% if places is empty %}
-                    <tr><td colspan="6" class="text-center">No {{ type|lower }} found.</td></tr>
+                <tr>
+                    <td colspan="6" class="text-center">No {{ type|lower }} found.</td>
+                </tr>
                 {% else %}
-                    {% for place in places %}
-                        <tr>
-                            <td><a class = "list-places-a" href="/place/{{ place.id }}">{{ place.name }}</a></td>
-                            {# <td>{{ place.type }}</td> #}
-                            {# <td>{{ place.address is not empty ? place.address : 'No address available' }}</td> #}
-                            {# <td>{{ place.website is not empty ? '<a href="' ~ place.website ~ '" target="_blank">Visit</a>' : 'No website'|raw }}</td> #}
-                            {# <td>{{ place.phone is not empty ? place.phone : 'No phone' }}</td> #}
-                        </tr>
-                    {% endfor %}
+                {% for place in places %}
+                <tr>
+                    <td><a class="list-places-a" href="/place/{{ place.id }}">{{ place.name }}</a></td>
+                    {# <td>{{ place.type }}</td> #}
+                    {# <td>{{ place.address is not empty ? place.address : 'No address available' }}</td> #}
+                    {# <td>{{ place.website is not empty ? '<a href="' ~ place.website ~ '" target="_blank">Visit</a>' :
+                        'No website'|raw }}</td> #}
+                    {# <td>{{ place.phone is not empty ? place.phone : 'No phone' }}</td> #}
+                </tr>
+                {% endfor %}
                 {% endif %}
             </tbody>
         </table>
@@ -46,10 +54,10 @@
     // Add Markers for Each Place
     var markers = [];
     {% for place in places %}
-        var marker = L.marker([{{ place.latitude }}, {{ place.longitude }}])
+    var marker = L.marker([{{ place.latitude }}, { { place.longitude } }])
             .addTo(map)
-            .bindPopup(`<b>{{ place.name }}</b><br>{{ place.type }}`);
-        markers.push(marker);
+        .bindPopup(`<b>{{ place.name }}</b><br>{{ place.type }}`);
+    markers.push(marker);
     {% endfor %}
 
     // Adjust map view to fit all markers if they exist
