@@ -10,6 +10,13 @@
   --font-family: 'Poppins', sans-serif;
 }
 
+nav .span-logo {
+  background-color: #e6c8447d;
+  border-radius: 5px;
+  display: inline-block;
+  transform: rotate(-3deg);
+}
+
 main {
   margin-bottom: 30px;
 }
@@ -35,9 +42,15 @@ header span {
   background-color: #e6c744;
 }
 
-header p {
-  padding-right: 20px;
+header .hero-title-wrapper p {
+  /* padding-right: 20px;   */
 }
+
+
+header a {
+  margin-top: 20px;
+}
+
 
 header .hero-image {
   overflow: hidden;
@@ -56,30 +69,56 @@ header .hero-image {
   width: 30px;
 }
 
-.gallery-section h2 {
-  font-weight: bold;
+/* ---------------- Gallery */
+.gallery-section {
+  padding: 40px 0;
 }
 
-.gallery-section h2 span {
+.gallery-section h2 {
+  font-weight: bold;
+  font-size: 2rem;
+}
+
+.gallery-section .row {
+  margin: auto;
+}
+
+.span {
   background-color: #e6c8447d;
   border-radius: 5px;
   display: inline-block;
   transform: rotate(-3deg);
+  font-size: 2rem;
+  margin-bottom: 30px;
+}
+
+.gallery-section .sous-titre {
+  text-align: center;
+  color: grey;
+  text-align: justify;
 }
 
 .gallery-section .gallery {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
 
+.gallery-section .gallery .row {
+  width: 100%;
 }
 
 .gallery-section .gallery .card {
   overflow: hidden;
-  margin-bottom: 30px;
+  /* margin-bottom: 50px; */
   max-width: 400px;
+  transition: transform 0.3s ease-in-out;
+}
 
-
+.card:hover {
+  transform: scale(1.05);
 }
 
 .gallery-section .gallery .card .card-text {
@@ -90,12 +129,22 @@ header .hero-image {
   color: gray;
 }
 
+.card img {
+  width: 100%;
+  height: 400px;
+  object-fit: cover;
+}
+
 .btn-link {
   font-size: 20px;
   margin-left: auto;
   margin-bottom: 20px;
 }
 
+.btn-voir-plus {
+  display: flex;
+  justify-content: center;
+}
 
 /* ------------------------ FOOTER */
 footer {
@@ -163,17 +212,39 @@ footer p {
   margin-top: 20px;
 }
 
+
 .form-section .creerCompte a,
-p {
+.form-section .creerCompte p {
   font-size: 14px;
   text-align: left;
   display: inline;
 }
 
+/* ------------------------ ITEM PAGE */
+main .item-page {
+  height: 65vh;
+  margin-top: 40px;
+}
+
+/* ------------------------ /map */
+.list-places-a {
+  text-decoration: none;
+  color: black;
+
+}
+
+.list-places-a:hover {
+  text-decoration: underline;
+
+}
 
 /* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
 /* MEDIA QUERY - Style pour les écrans de 768px de large ou plus (tablettes et ordinateurs) */
 @media (min-width: 768px) {
+
+  main {
+    min-height: 60vh;
+  }
 
   /* HEADER DESKTOP */
   nav,
@@ -196,6 +267,10 @@ p {
     font-size: 60px;
   }
 
+  header .hero-title-wrapper p {
+    font-size: 18px;
+  }
+
   header .hero-image img {
     width: 600px;
   }
@@ -208,32 +283,37 @@ p {
     width: 60px;
   }
 
+  /* GALLERY DESKTOP */
   .gallery-section .gallery {
     display: flex;
-    flex-wrap: nowrap;
+    /* flex-wrap: nowrap; */
     justify-content: space-evenly;
     align-items: start;
+    /* gap: 20px;  */
+  }
+
+  .gallery-section .gallery .row {
+    margin-bottom: 30px;
   }
 
   .gallery-section .gallery .card {
     overflow: hidden;
     margin: 30px;
     min-width: 300px;
+    width: 50%;
+    margin: auto;
+    flex-basis: calc(33.33% - 20px);
   }
 
   .gallery-section .gallery img {
-    min-width: 410px;
-    max-height: 470px;
+    /* min-width: 410px; */
+    /* max-height: 470px; */
+    /* min-height: 470px; */
     overflow: hidden;
   }
 
   .gallery-section .gallery .card .card-text {
     min-height: 180px;
-  }
-
-  .gallery-section .gallery .card .card-text p {
-    flex-grow: 1;
-    padding: 10px;
   }
 
   .btn-link {
@@ -244,11 +324,12 @@ p {
 
   /* NAV DESKTOP */
 
-.nav-user-ul{
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
+  .nav-user-ul {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
   /* FOOTER DESKTOP */
   footer {
     height: 30vh;
@@ -263,12 +344,13 @@ p {
   }
 
   footer ul {
-    font-size: 14px;
+    font-size: 16px;
   }
 
   footer p {
     margin-right: 10px;
     margin-top: 20px;
+    font-size: 14px;
   }
 
   /* LOGIN DESKTOP */
@@ -280,6 +362,20 @@ p {
   .form-section .form-title {
     display: flex;
     flex-direction: column;
+  }
+
+  /* ------------------------ ITEM PAGE */
+  main .item-page {
+    width: 70%;
+    margin: auto;
+    margin-top: 40px;
+  }
+
+
+  /* ---------------------- PAGE '/services' */
+  .gallery-section .sous-titre {
+    font-size: 18px;
+    text-align: center;
   }
 
 }

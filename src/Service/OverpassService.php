@@ -2,15 +2,14 @@
 
 namespace App\Service;
 
-use App\Entity\Service;
-use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
-use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
+use Doctrine\ORM\EntityManagerInterface;
+use App\Entity\Service;
 
 class OverpassService
 {
-    private $httpClient;
-    private $entityManager;
+    private HttpClientInterface $httpClient;
+    private EntityManagerInterface $entityManager;
 
     public function __construct(HttpClientInterface $httpClient, EntityManagerInterface $entityManager)
     {
@@ -18,54 +17,136 @@ class OverpassService
         $this->entityManager = $entityManager;
     }
 
-    public function fetchDrinkingWaterNodes(float $minLat, float $minLon, float $maxLat, float $maxLon)
+    public function fetchAndStoreData(): void
     {
-        // Overpass API URL
-        $overpassUrl = 'http://overpass-api.de/api/interpreter';
+        $overpassQuery = <<<'EOT'
+        [out:json];
+        area[name="Rouen"]->.searchArea;
+        (
+          // Nourriture
+          node["amenity"="fast_food"](area.searchArea);
+          node["shop"="bakery"](area.searchArea);
+          node["shop"="supermarket"](area.searchArea);
+          node["shop"="mall"](area.searchArea);
 
-        // Overpass query with bounding box, formatted for POST
-        $query = sprintf(
-            '[out:json];node[amenity=drinking_water](%f,%f,%f,%f);out;',
-            $minLat,
-            $minLon,
-            $maxLat,
-            $maxLon
+          // Santé
+          node["amenity"="pharmacy"](area.searchArea);
+          node["amenity"="hospital"](area.searchArea);
+
+          // Transport
+          node["amenity"="fuel"](area.searchArea);
+          node["amenity"="parking"](area.searchArea);
+          node["amenity"="bicycle_rental"](area.searchArea);
+
+          // Loisirs
+          node["amenity"="cinema"](area.searchArea);
+          node["amenity"="theatre"](area.searchArea);
+          node["amenity"="nightclub"](area.searchArea);
+          node["amenity"="library"](area.searchArea);
+          node["amenity"="cafe"](area.searchArea);
+          node["tourism"="museum"](area.searchArea);
+          node["leisure"="park"](area.searchArea);
+
+          // Services
+          node["amenity"="bank"](area.searchArea);
+          node["amenity"="atm"](area.searchArea);
+          node["amenity"="post_office"](area.searchArea);
+          node["amenity"="school"](area.searchArea);
+
+          // Hébergement
+          node["tourism"="hotel"](area.searchArea);
+
+          // Other
+          node["amenity"="toilets"](area.searchArea);
+          node["amenity"="drinking_water"](area.searchArea);
         );
+        out body;
+        EOT;
 
-        try {
-            // Send the query using the POST method (sending the query in the body)
-            $response = $this->httpClient->request('POST', $overpassUrl, [
-                'headers' => ['Content-Type' => 'application/x-www-form-urlencoded'],
-                'body' => ['data' => $query]
-            ]);
+        $url = "https://overpass-api.de/api/interpreter?data=" . urlencode($overpassQuery);
+        $response = $this->httpClient->request('GET', $url);
+        $data = $response->toArray();
 
-            // Convert the JSON response to an array
-            $data = $response->toArray();
-
-            // Get the nodes from the response
-            $nodes = $data['elements'] ?? [];
-
-            // Iterate over the nodes and store them in the database
-            foreach ($nodes as $nodeData) {
-                $service = new Service();
-                $service->setLatitude($nodeData['lat']);
-                $service->setLongitude($nodeData['lon']);
-                $service->setName($nodeData['tags']['name'] ?? 'Drinking Water');
-                $service->setType('drinking_water'); // Define service type
-                $service->setUrl(null); // Optional, modify if Overpass provides a URL
-            
-                // Persist the service in the database
-                $this->entityManager->persist($service);
-            }
-            
-
-            // Commit the changes to the database
-            $this->entityManager->flush();
-
-        } catch (TransportExceptionInterface $e) {
-            // Handle the exception if the request fails
-            // You can log it or return an error response
-            throw new \RuntimeException('Error during Overpass API request: ' . $e->getMessage());
+        if (!isset($data['elements'])) {
+            return; // No data found
         }
+
+        foreach ($data['elements'] as $element) {
+            if (!isset($element['lat'], $element['lon'])) {
+                continue; // Skip elements without coordinates
+            }
+
+            $type = $this->getTypeFromTags($element['tags']);
+            $name = $element['tags']['name'] ?? $this->getDefaultName($type);
+            $latitude = $element['lat'];
+            $longitude = $element['lon'];
+            $phone = $element['tags']['phone'] ?? null;
+            $website = $element['tags']['website'] ?? null;
+            $address = $element['tags']['addr:street'] ?? null;
+
+            $service = new Service();
+            $service->setName($name);
+            $service->setType($type);
+            $service->setLatitude($latitude);
+            $service->setLongitude($longitude);
+            $service->setPhone($phone);
+            $service->setWebsite($website);
+            $service->setAddress($address);
+
+            $this->entityManager->persist($service);
+        }
+
+        $this->entityManager->flush();
+    }
+
+    private function getTypeFromTags(array $tags): string
+    {
+        return match (true) {
+            isset($tags['amenity']) => match ($tags['amenity']) {
+                'fast_food' => 'fast_food',
+                'pharmacy' => 'pharmacy',
+                'hospital' => 'hospital',
+                'fuel' => 'fuel',
+                'parking' => 'parking',
+                'bicycle_rental' => 'bicycle_rental',
+                'cinema' => 'cinema',
+                'theatre' => 'theatre',
+                'nightclub' => 'nightclub',
+                'library' => 'library',
+                'cafe' => 'cafe',
+                'bank' => 'bank',
+                'atm' => 'atm',
+                'post_office' => 'post_office',
+                'school' => 'school',
+                'toilets' => 'toilets',
+                'drinking_water' => 'drinking_water',
+                default => 'other_service',
+            },
+            isset($tags['shop']) => match ($tags['shop']) {
+                'bakery' => 'boulangerie',
+                'supermarket' => 'supermarche',
+                'mall' => 'centre_commercial',
+                default => 'shop',
+            },
+            isset($tags['tourism']) => match ($tags['tourism']) {
+                'museum' => 'museum',
+                'hotel' => 'hotel',
+                default => 'tourism',
+            },
+            isset($tags['leisure']) => match ($tags['leisure']) {
+                'park' => 'park',
+                default => 'leisure',
+            },
+            default => 'unknown',
+        };
+    }
+
+    private function getDefaultName(string $type): string
+    {
+        return match ($type) {
+            'toilets' => 'Toilettes publiques',
+            'drinking_water' => "Point d'eau potable",
+            default => 'Lieu sans nom',
+        };
     }
 }

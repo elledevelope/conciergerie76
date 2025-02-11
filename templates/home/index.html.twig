@@ -5,6 +5,7 @@
 {% block body %}
 <main>
     <section>
+        {# Header #}
         <header>
             <div class="hero-title-wrapper">
                 <h1>EXPLORE <br>
@@ -12,7 +13,7 @@
                     <span>ENVIRON</span> <br>
                     MENT
                 </h1>
-                <p>Votre concierge personnel</p>
+                <p>Votre concierge personnel</p><br> <br>
                 <a style="color: white; text-decoration:none" href="#gallery-section">
                     <button type="button" class="btn btn-dark">
                         Explorer
@@ -26,6 +27,7 @@
         </header>
     </section>
 
+    {# Sponsors #}
     <div class="bande-sponsors">
         <div>
             <img src="{{ asset('icons/mcdonalds.png') }}" alt="mcdonalds">
@@ -38,45 +40,54 @@
         </div>
     </div>
 
+    {# Gallery #}
     <section class="gallery-section" id="gallery-section">
-        {# <div class="svg-cont"> #}
-            <h2>Rechercher de points <span>d'intérêt</span></h2>
-            {# <div class="svg"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink"
-                xmlns:svgjs="http://svgjs.dev/svgjs" viewBox="0 0 600 600">
-                <path
-                    d="M379.3412780761719,168.86227416992188C362.87421162923175,179.4910151163737,291.01792907714844,186.97603607177734,293.1137390136719,177.84429931640625C295.2095489501953,168.71256256103516,377.5448811848958,115.56885782877605,391.9161376953125,114.07185363769531C406.2873942057292,112.57484944661458,395.808344523112,158.23353322347006,379.3412780761719,168.86227416992188C362.87421162923175,179.4910151163737,291.01792907714844,186.97603607177734,293.1137390136719,177.84429931640625"
-                    fill="hsl(50, 98%, 60%)" fill-opacity="0.64"></path>
-            </svg></div> #}
-        {# </div> #}
-        
+        <h2>Explorer les <span class="span">environs</span></h2>
         <div class="gallery">
-            <div class="card">
-                <img src="{{ asset('img/water.jpg') }}" alt="Drinking water">
-                <div class="card-text">
-                    <h2>Fontaines d'eau</h2>
-                    <p>Points d'eau pour remplir votre gourde et vous rafraîchir lors de votre promenade.</p>
+            <div class="row">
+                {# app_cafe #}
+                <div class="col-md-4">
+                    <div class="card">
+                        <img src="{{ asset('img/cafe.jpg') }}" alt="Café">
+                        <div class="card-text">
+                            <h2><a href="{{ path('app_cafe') }}" style="color:black;">☕ Cafés</a></h2>
+                            {# <p>Découvrez les cinémas et horaires des séances.</p> #}
+                        </div>
+                        <a href="{{ path('app_cafe') }}" type="button" class="btn btn-link">Explorer →</a>
+                    </div>
                 </div>
-                <button type="button" class="btn btn-link">Trouver →</button>
-            </div>
-            <div class="card">
-                <img src="{{ asset('img/park.jpg') }}" alt="Parks">
-                <div class="card-text">
-                    <h2><a href={{path("app_parcs")}} style="color:black;">Parcs et promenades</a></h2>
-                    <p>Respirez l'air frais et profitez de la nature dans un park. </p>
+
+                {# app_cinema #}
+                <div class="col-md-4">
+                    <div class="card">
+                        <img src="{{ asset('img/cinema.jpg') }}" alt="Cinéma">
+                        <div class="card-text">
+                            <h2><a href="{{ path('app_cinema') }}" style="color:black;">🎥 Cinémas</a></h2>
+                            {# <p>Découvrez les cinémas et horaires des séances.</p> #}
+                        </div>
+                        <a href="{{ path('app_cinema') }}" type="button" class="btn btn-link">Explorer →</a>
+                    </div>
                 </div>
-                <a href={{path("app_parcs")}} type="button" class="btn btn-link">Se promener →</a>
-            </div>
-            <div class="card">
-                <img src="{{ asset('img/museum.jpg') }}" alt="Museums">
-                <div class="card-text">
-                    <h2>Musées</h2>
-                    <p>Découvrez les trésors cachés des musées et vivez une expérience culturelle enrichissante.</p>
+
+                {# app_supermarche #}
+                <div class="col-md-4">
+                    <div class="card">
+                        <img src="{{ asset('img/supermarche.jpg') }}" alt="Supermarché">
+                        <div class="card-text">
+                            <h2><a href="{{ path('app_supermarche') }}" style="color:black;">🛒 Supermarchés</a></h2>
+                            {# <p>Faites vos courses dans les supermarchés proches.</p> #}
+                        </div>
+                        <a href="{{ path('app_supermarche') }}" type="button" class="btn btn-link">Trouver →</a>
+                    </div>
                 </div>
-                <button type="button" class="btn btn-link">Visiter →</button>
+
             </div>
+
+            <!-- Bouton "Voir plus" -->
+        </div>
+        <div class="btn-voir-plus">
+            <a type="button" class="btn btn-outline-dark" href={{path("app_services")}}>Voir plus</a>
         </div>
     </section>
-
-
 </main>
 {% endblock %}

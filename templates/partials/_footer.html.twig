@@ -1,21 +1,29 @@
 <footer>
     <div class="footer">
-        <h3>Conciergerie76</h3>
-        <ul>
-            <li>
-                <a type="button" href="#">À propos</a>
-            </li>
-
-            <li>
-                <a type="button" href="#">Services</a>
-            </li>
-        </ul>
+        <a style="color: white;" class="navbar-brand" href={{path('app_home')}}>Conciergeries
+            <span style="
+            color: black;   
+            background-color: #e6c8447d;
+            border-radius: 5px;
+            display: inline-block;
+            transform: rotate(-3deg);" 
+            class="span-logo">76</span></a>
         <ul>
             <li>
                 <a type="button" href="#">Contact</a>
             </li>
+
             <li>
-                <a type="button" href="#">Recherche</a>
+                <a type="button" href="#">CGU</a>
+            </li>
+        </ul>
+        <ul>
+            <li>
+                
+                <a class="nav-link" href={{path("app_services")}}>Services</a>
+            </li>
+            <li>
+                <a class="nav-link" href={{path("app_map")}}>Map</a>
             </li>
         </ul>
 
