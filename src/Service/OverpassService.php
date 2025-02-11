@@ -23,6 +23,7 @@ class OverpassService
         [out:json];
         area[name="Rouen"]->.searchArea;
         (
+        // Nourriture
           node["amenity"="fast_food"](area.searchArea);
           node["shop"="bakery"](area.searchArea);
           node["shop"="supermarket"](area.searchArea);
@@ -30,18 +31,22 @@ class OverpassService
           node["shop"="mall"](area.searchArea);
           node["shop"](area.searchArea);
         
+          // Santé
           node["amenity"="pharmacy"](area.searchArea);
           node["amenity"="hospital"](area.searchArea);
         
+           // Transport
           node["amenity"="fuel"](area.searchArea);
           node["amenity"="parking"](area.searchArea);
           node["amenity"="bicycle_rental"](area.searchArea);
         
+            // Loisirs
           node["amenity"="cinema"](area.searchArea);
           node["amenity"="theatre"](area.searchArea);
           node["amenity"="nightclub"](area.searchArea);
           node["amenity"="library"](area.searchArea);
         
+            // Services
           node["amenity"="bank"](area.searchArea);
           node["amenity"="atm"](area.searchArea);
           node["amenity"="post_office"](area.searchArea);
@@ -51,8 +56,10 @@ class OverpassService
           node["amenity"="dry_cleaning"](area.searchArea);
           node["amenity"="car_repair"](area.searchArea);
         
+          // Hébergement
           node["tourism"="hotel"](area.searchArea);
         
+           // Toilettes publiques
           node["amenity"="toilets"](area.searchArea);
         );
         out body;
