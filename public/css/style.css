@@ -344,12 +344,13 @@ main .item-page {
   }
 
   footer ul {
-    font-size: 14px;
+    font-size: 16px;
   }
 
   footer p {
     margin-right: 10px;
     margin-top: 20px;
+    font-size: 14px;
   }
 
   /* LOGIN DESKTOP */
