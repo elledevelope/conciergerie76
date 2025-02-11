@@ -19,7 +19,8 @@ class ContactType extends AbstractType
     {
         $builder
             ->add('nom', TextType::class, [
-                'label' => 'Votre nom*',
+                'label' => 'Nom*',
+                'attr' => ['placeholder' => 'Votre nom'],
                 'constraints' => [
                     new Assert\NotBlank(),
                     new Assert\Length(['max' => 50]),
@@ -30,7 +31,8 @@ class ContactType extends AbstractType
                 ],
             ])
             ->add('prenom', TextType::class, [
-                'label' => 'Votre prénom*',
+                'label' => 'Prénom*',
+                'attr' => ['placeholder' => 'Votre prénom'],
                 'constraints' => [
                     new Assert\NotBlank(),
                     new Assert\Length(['max' => 50]),
@@ -42,6 +44,7 @@ class ContactType extends AbstractType
             ])
             ->add('email', EmailType::class, [
                 'label' => 'Votre email*',
+                'attr' => ['placeholder' => 'exemple@gmail.com'],
                 'constraints' => [
                     new Assert\NotBlank(),
                     new Assert\Email(['message' => 'Veuillez entrer une adresse email valide.']),
@@ -49,6 +52,7 @@ class ContactType extends AbstractType
             ])
             ->add('telephone', TextType::class, [
                 'label' => 'Votre téléphone',
+                'attr' => ['placeholder' => '+330000000'],
                 'required' => false,
                 'constraints' => [
                     new Assert\Length(['max' => 20]),
@@ -59,7 +63,8 @@ class ContactType extends AbstractType
                 ],
             ])
             ->add('objet', TextType::class, [
-                'label' => 'Objet de demande*',
+                'label' => 'Sujet*',
+                'attr' => ['placeholder' => 'Objet de demande'],
                 'constraints' => [
                     new Assert\NotBlank(),
                     new Assert\Length(['max' => 100]),
@@ -71,7 +76,7 @@ class ContactType extends AbstractType
                     new Assert\NotBlank(),
                     new Assert\Length(['min' => 10, 'max' => 2000]),
                 ],
-                'attr' => ['rows' => 16],
+                'attr' => ['rows' => 6],
             ])
             ->add('agreeTerms', CheckboxType::class, [
                 'label' => 'En soumettant ce formulaire, j’accepte que mes données soient utilisées dans le cadre de ma demande et de la relation qui peut en découler.
@@ -84,6 +89,7 @@ class ContactType extends AbstractType
                     new Assert\IsTrue(['message' => 'Vous devez accepter les conditions.']),
                 ],
                 'label_html' => true,
+                'label_attr' => ['class' => 'agree-terms-label'],
             ])
             ->add('honeypot', HiddenType::class, [
                 'mapped' => false,

@@ -238,6 +238,13 @@ main .item-page {
 
 }
 
+.agree-terms-label {
+  font-size: 12px;
+  color: grey;
+  text-align: justify;
+}
+
+
 /* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
 /* MEDIA QUERY - Style pour les écrans de 768px de large ou plus (tablettes et ordinateurs) */
 @media (min-width: 768px) {
