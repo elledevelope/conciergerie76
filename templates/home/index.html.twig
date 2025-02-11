@@ -45,78 +45,43 @@
         <h2>Explorer les <span class="span">environs</span></h2>
         <div class="gallery">
             <div class="row">
-                {# Fontaines #}
-                {# <div class="card">
-                    <img src="{{ asset('img/water.jpg') }}" alt="Drinking water">
-                    <div class="card-text">
-                        <h2>Fontaines d'eau</h2>
-                        <p>Points d'eau pour remplir votre gourde et vous rafraîchir lors de votre promenade.</p>
-                    </div>
-                    <button type="button" class="btn btn-link">Trouver →</button>
-                </div> #}
-
-                {# Nourriture #}
+                {# app_cafe #}
                 <div class="col-md-4">
                     <div class="card">
-                        <img src="{{ asset('img/food.jpg') }}" alt="Nourriture">
+                        <img src="{{ asset('img/cafe.jpg') }}" alt="Café">
                         <div class="card-text">
-                            <h2><a href="{{ path('app_nourriture') }}" style="color:black;">Nourriture à proximité</a>
-                            </h2>
-                            <p>Trouvez les meilleurs restaurants, cafés, supermarchés et plus.</p>
+                            <h2><a href="{{ path('app_cafe') }}" style="color:black;">☕ Cafés</a></h2>
+                            {# <p>Découvrez les cinémas et horaires des séances.</p> #}
                         </div>
-                        <a href="{{ path('app_nourriture') }}" type="button" class="btn btn-link">Trouver →</a>
+                        <a href="{{ path('app_cafe') }}" type="button" class="btn btn-link">Explorer →</a>
                     </div>
                 </div>
 
-                {# Loisirs #}
+                {# app_cinema #}
                 <div class="col-md-4">
                     <div class="card">
-                        <img src="{{ asset('img/cinema.jpg') }}" alt="Loisirs">
+                        <img src="{{ asset('img/cinema.jpg') }}" alt="Cinéma">
                         <div class="card-text">
-                            <h2><a href="{{ path('app_loisirs') }}" style="color:black;">Loisirs</a></h2>
-                            <p>Cinémas, théâtres, bibliothèques et plus pour vos moments de détente.</p>
+                            <h2><a href="{{ path('app_cinema') }}" style="color:black;">🎥 Cinémas</a></h2>
+                            {# <p>Découvrez les cinémas et horaires des séances.</p> #}
                         </div>
-                        <a href="{{ path('app_loisirs') }}" type="button" class="btn btn-link">Explorer →</a>
+                        <a href="{{ path('app_cinema') }}" type="button" class="btn btn-link">Explorer →</a>
                     </div>
                 </div>
 
-                {# Hair-salon/ services #}
+                {# app_supermarche #}
                 <div class="col-md-4">
                     <div class="card">
-                        <img src="{{ asset('img/hair-salon.jpg') }}" alt="Services">
+                        <img src="{{ asset('img/supermarche.jpg') }}" alt="Supermarché">
                         <div class="card-text">
-                            <h2><a href="{{ path('app_services_group') }}" style="color:black;">Services divers</a></h2>
-                            <p>Banques, écoles, salons de coiffure et autres services utiles.</p>
+                            <h2><a href="{{ path('app_supermarche') }}" style="color:black;">🛒 Supermarchés</a></h2>
+                            {# <p>Faites vos courses dans les supermarchés proches.</p> #}
                         </div>
-                        <a href="{{ path('app_services_group') }}" type="button" class="btn btn-link">Explorer →</a>
+                        <a href="{{ path('app_supermarche') }}" type="button" class="btn btn-link">Trouver →</a>
                     </div>
                 </div>
 
-
-                {# Parcs #}
-                {# <div class="col-md-4">
-                    <div class="card">
-                        <img src="{{ asset('img/park.jpg') }}" alt="Parks">
-                        <div class="card-text">
-                            <h2><a href={{path("app_park")}} style="color:black;">Parcs et promenades</a></h2>
-                            <p>Respirez l'air frais et profitez de la nature.</p>
-                        </div>
-                        <a href={{path("app_park")}} type="button" class="btn btn-link">Se promener →</a>
-                    </div>
-                </div> #}
-
-                {# Musées #}
-                {# <div class="col-md-4">
-                    <div class="card">
-                        <img src="{{ asset('img/museum.jpg') }}" alt="Museums">
-                        <div class="card-text">
-                            <h2><a href={{path("app_museum")}} style="color:black;">Musées</a></h2>
-                            <p>Découvrez les trésors cachés des musées.</p>
-                        </div>
-                        <a href={{path("app_museum")}} type="button" class="btn btn-link">Visiter →</a>
-                    </div>
-                </div>
-            </div> #}
+            </div>
 
             <!-- Bouton "Voir plus" -->
         </div>

@@ -14,10 +14,9 @@
         <select id="service-filter" class="form-select">
             <option value="">Sélectionnez une catégorie</option>
             <option value="fast_food">🍔 Restauration rapide</option>
-            {# <option value="bakery">🍞 Boulangerie</option> #}
-            {# <option value="supermarket">🛒 Supermarché</option> #}
-            {# <option value="convenience">🛍️ Supérette</option> #}
-            {# <option value="mall">🏬 Centre commercial</option> #}
+            <option value="boulangerie">🍞 Boulangerie</option>
+            <option value="supermarche">🛒 Supermarché</option>
+            <option value="centre_commercial">🏬 Centre commercial</option>
             <option value="fuel">⛽ Station-service</option>
             <option value="parking">🅿️ Parking</option>
             <option value="bicycle_rental">🚲 Location de vélos</option>
@@ -27,6 +26,16 @@
             <option value="theatre">🎭 Théâtre</option>
             <option value="nightclub">🎉 Boîte de nuit</option>
             <option value="library">📚 Bibliothèque</option>
+            <option value="cafe">☕ Café</option>
+            <option value="museum">🏛️ Musée</option>
+            <option value="park">🌳 Parc</option>
+            <option value="bank">🏦 Banque</option>
+            <option value="atm">🏧 Distributeur</option>
+            <option value="post_office">📮 Bureau de poste</option>
+            <option value="school">🏫 École</option>
+            <option value="hotel">🏨 Hôtel</option>
+            <option value="toilets">🚻 Toilettes publiques</option>
+            <option value="drinking_water">💧 Point d'eau potable</option>
         </select>
     </div>
 
@@ -56,8 +65,15 @@
     // Add OpenStreetMap tiles
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
 
-    // Marker for user location ("vous êtes ici")
-    var userLocationMarker = L.marker([49.4431, 1.0993]).addTo(map);
+    // Custom red marker for user location
+    var userLocationIcon = L.icon({
+        iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-red.png',
+        iconSize: [25, 41],
+        iconAnchor: [12, 41],
+        popupAnchor: [1, -34]
+    });
+
+    var userLocationMarker = L.marker([49.4431, 1.0993], { icon: userLocationIcon }).addTo(map);
     userLocationMarker.bindPopup("Vous êtes ici").openPopup();
 
     // Store the current markers for the map
@@ -85,13 +101,11 @@
                 } else {
                     // Loop over services and add markers and table rows
                     data.forEach(service => {
-                        // Add marker to the map
                         var marker = L.marker([service.latitude, service.longitude])
                             .addTo(map)
                             .bindPopup(`<b>${service.name}</b><br>${service.type}`);
                         markers.push(marker);
 
-                        // Add service to the table
                         let row = document.createElement('tr');
                         row.innerHTML = `
                             <td><a class="list-places-a" href="/place/${service.id}">${service.name}</a></td>
@@ -115,19 +129,18 @@
     // Listen for changes on the filter dropdown
     document.getElementById('service-filter').addEventListener('change', function () {
         var selectedType = this.value;
-        
+
         // Hide the places list and markers before fetching data
         document.getElementById('places-list-container').style.display = 'none';
         document.getElementById('places-header').style.display = 'none';
-        
+
         // If a type is selected, fetch services, else leave the map and table empty
         if (selectedType) {
-            fetchServices(selectedType); // Fetch services based on selected type
+            fetchServices(selectedType);
         } else {
-            // Clear the map and table if no type is selected
             markers.forEach(marker => marker.remove());
             markers = [];
-            userLocationMarker.addTo(map); // Ensure "vous êtes ici" marker stays visible
+            userLocationMarker.addTo(map);
         }
     });
 </script>

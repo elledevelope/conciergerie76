@@ -3,111 +3,261 @@
 {% block title %}Services{% endblock %}
 
 {% block body %}
-{# -------------------- page '/services' -------------------- #}
 <main>
-    {# gallery-section #}
     <section class="gallery-section">
-        <h2 style="text-align: center;">Tous les services dont vous avez besoin, <span class="span">à portée de main</span></h2>
+        <h2 style="text-align: center;">Tous les services dont vous avez besoin, <span class="span">à portée de
+                main</span></h2>
         <p class="sous-titre">Découvrez les commerces, restaurants, professionnels de santé et autres services
-            essentiels à proximité,
-            grâce à notre carte interactive.</p>
+            essentiels à proximité, grâce à notre carte interactive.</p>
 
-        {# Gallery #}
         <div class="gallery">
-
             <div class="row">
 
-                {# Nourriture #}
+                {# app_cafe #}
                 <div class="col-md-4">
                     <div class="card">
-                        <img src="{{ asset('img/food.jpg') }}" alt="Nourriture">
+                        <img src="{{ asset('img/cafe.jpg') }}" alt="Café">
                         <div class="card-text">
-                            <h2><a href="{{ path('app_nourriture') }}" style="color:black;">Nourriture à proximité</a>
+                            <h2><a href="{{ path('app_cafe') }}" style="color:black;">☕ Cafés</a></h2>
+                            {# <p>Découvrez les cinémas et horaires des séances.</p> #}
+                        </div>
+                        <a href="{{ path('app_cafe') }}" type="button" class="btn btn-link">Explorer →</a>
+                    </div>
+                </div>
+
+
+                {# app_fast_food #}
+                <div class="col-md-4">
+                    <div class="card">
+                        <img src="{{ asset('img/fast-food.jpg') }}" alt="Restauration rapide">
+                        <div class="card-text">
+                            <h2><a href="{{ path('app_fast_food') }}" style="color:black;">🍔 Restauration rapide</a>
                             </h2>
-                            <p>Trouvez les meilleurs restaurants, cafés, supermarchés et plus.</p>
+                            {# <p>Trouvez les meilleurs fast-foods près de chez vous.</p> #}
                         </div>
-                        <a href="{{ path('app_nourriture') }}" type="button" class="btn btn-link">Trouver →</a>
+                        <a href="{{ path('app_fast_food') }}" type="button" class="btn btn-link">Trouver →</a>
                     </div>
                 </div>
 
-                {# Santé #}
+                {# app_boulangerie #}
                 <div class="col-md-4">
                     <div class="card">
-                        <img src="{{ asset('img/health.jpg') }}" alt="Santé">
+                        <img src="{{ asset('img/boulangerie.jpg') }}" alt="Boulangerie">
                         <div class="card-text">
-                            <h2><a href="{{ path('app_sante') }}" style="color:black;">Services de Santé</a></h2>
-                            <p>Trouvez des pharmacies, hôpitaux et plus près de chez vous.</p>
+                            <h2><a href="{{ path('app_boulangerie') }}" style="color:black;">🍞 Boulangeries</a></h2>
+                            {# <p>Découvrez les meilleures boulangeries locales.</p> #}
                         </div>
-                        <a href="{{ path('app_sante') }}" type="button" class="btn btn-link">Trouver →</a>
+                        <a href="{{ path('app_boulangerie') }}" type="button" class="btn btn-link">Explorer →</a>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                {# app_supermarche #}
+                <div class="col-md-4">
+                    <div class="card">
+                        <img src="{{ asset('img/supermarche.jpg') }}" alt="Supermarché">
+                        <div class="card-text">
+                            <h2><a href="{{ path('app_supermarche') }}" style="color:black;">🛒 Supermarchés</a></h2>
+                            {# <p>Faites vos courses dans les supermarchés proches.</p> #}
+                        </div>
+                        <a href="{{ path('app_supermarche') }}" type="button" class="btn btn-link">Trouver →</a>
                     </div>
                 </div>
 
-                {# Transport #}
+                {# app_cinema #}
                 <div class="col-md-4">
                     <div class="card">
-                        <img src="{{ asset('img/station-gaz.jpg') }}" alt="Transport">
+                        <img src="{{ asset('img/cinema.jpg') }}" alt="Cinéma">
                         <div class="card-text">
-                            <h2><a href="{{ path('app_transport') }}" style="color:black;">Transport à proximité</a>
+                            <h2><a href="{{ path('app_cinema') }}" style="color:black;">🎥 Cinémas</a></h2>
+                            {# <p>Découvrez les cinémas et horaires des séances.</p> #}
+                        </div>
+                        <a href="{{ path('app_cinema') }}" type="button" class="btn btn-link">Explorer →</a>
+                    </div>
+                </div>
+
+                {# app_theatre #}
+                <div class="col-md-4">
+                    <div class="card">
+                        <img src="{{ asset('img/theatre.jpg') }}" alt="Théâtre">
+                        <div class="card-text">
+                            <h2><a href="{{ path('app_theatre') }}" style="color:black;">🎭 Théâtres</a></h2>
+                            <p>Découvrez les cinémas et horaires des séances.</p>
+                        </div>
+                        <a href="{{ path('app_theatre') }}" type="button" class="btn btn-link">Explorer →</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                {# app_nightclub #}
+                <div class="col-md-4">
+                    <div class="card">
+                        <img src="{{ asset('img/nightclub.jpg') }}" alt="Boîte de nuit">
+                        <div class="card-text">
+                            <h2><a href="{{ path('app_nightclub') }}" style="color:black;">🎉 Boîtes de nuit</a></h2>
+                            <p>Découvrez les cinémas et horaires des séances.</p>
+                        </div>
+                        <a href="{{ path('app_nightclub') }}" type="button" class="btn btn-link">Explorer →</a>
+                    </div>
+                </div>
+
+
+                {# app_library #}
+                <div class="col-md-4">
+                    <div class="card">
+                        <img src="{{ asset('img/library.jpg') }}" alt="Bibliothèque">
+                        <div class="card-text">
+                            <h2><a href="{{ path('app_library') }}" style="color:black;">📚 Bibliothèques</a></h2>
+                            <p>Découvrez les cinémas et horaires des séances.</p>
+                        </div>
+                        <a href="{{ path('app_library') }}" type="button" class="btn btn-link">Explorer →</a>
+                    </div>
+                </div>
+
+
+                {# app_museum #}
+                <div class="col-md-4">
+                    <div class="card">
+                        <img src="{{ asset('img/museum.jpg') }}" alt="Cinéma">
+                        <div class="card-text">
+                            <h2><a href="{{ path('app_museum') }}" style="color:black;">🏛️ Musées</a></h2>
+                            {# <p>Découvrez les cinémas et horaires des séances.</p> #}
+                        </div>
+                        <a href="{{ path('app_museum') }}" type="button" class="btn btn-link">Explorer →</a>
+                    </div>
+                </div>
+
+            </div>
+            <div class="row">
+                {# app_park #}
+                <div class="col-md-4">
+                    <div class="card">
+                        <img src="{{ asset('img/park.jpg') }}" alt="Parc">
+                        <div class="card-text">
+                            <h2><a href="{{ path('app_park') }}" style="color:black;">🌳 Parcs</a></h2>
+                            {# <p>Découvrez les cinémas et horaires des séances.</p> #}
+                        </div>
+                        <a href="{{ path('app_park') }}" type="button" class="btn btn-link">Explorer →</a>
+                    </div>
+                </div>
+
+                {# app_bank #}
+                <div class="col-md-4">
+                    <div class="card">
+                        <img src="{{ asset('img/bank.jpg') }}" alt="Banques">
+                        <div class="card-text">
+                            <h2><a href="{{ path('app_bank') }}" style="color:black;">🏦 Banques</a></h2>
+                            {# <p>Découvrez les cinémas et horaires des séances.</p> #}
+                        </div>
+                        <a href="{{ path('app_bank') }}" type="button" class="btn btn-link">Explorer →</a>
+                    </div>
+                </div>
+
+                {# app_atm #}
+                <div class="col-md-4">
+                    <div class="card">
+                        <img src="{{ asset('img/atm.jpg') }}" alt="Distributeur">
+                        <div class="card-text">
+                            <h2><a href="{{ path('app_atm') }}" style="color:black;">🏧 Distributeurs</a></h2>
+                            {# <p>Découvrez les cinémas et horaires des séances.</p> #}
+                        </div>
+                        <a href="{{ path('app_atm') }}" type="button" class="btn btn-link">Explorer →</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                {# app_post_office #}
+                <div class="col-md-4">
+                    <div class="card">
+                        <img src="{{ asset('img/post.jpg') }}" alt="Bureau de poste">
+                        <div class="card-text">
+                            <h2><a href="{{ path('app_post_office') }}" style="color:black;">📮 Bureaux de poste</a>
                             </h2>
-                            <p>Stations de carburant, parkings et locations de vélos.</p>
+                            {# <p>Découvrez les cinémas et horaires des séances.</p> #}
                         </div>
-                        <a href="{{ path('app_transport') }}" type="button" class="btn btn-link">Trouver →</a>
+                        <a href="{{ path('app_post_office') }}" type="button" class="btn btn-link">Explorer →</a>
+                    </div>
+                </div>
+
+                {# app_pharmacy #}
+                <div class="col-md-4">
+                    <div class="card">
+                        <img src="{{ asset('img/pharmacy.jpg') }}" alt="Pharmacie">
+                        <div class="card-text">
+                            <h2><a href="{{ path('app_pharmacy') }}" style="color:black;">💊 Pharmacies</a></h2>
+                            <p>Trouvez une pharmacie ouverte près de vous.</p>
+                        </div>
+                        <a href="{{ path('app_pharmacy') }}" type="button" class="btn btn-link">Trouver →</a>
+                    </div>
+                </div>
+
+                {# app_hospital #}
+                <div class="col-md-4">
+                    <div class="card">
+                        <img src="{{ asset('img/hospital.jpg') }}" alt="Hôpital">
+                        <div class="card-text">
+                            <h2><a href="{{ path('app_hospital') }}" style="color:black;">🏥 Hôpitaux</a></h2>
+                            <p>Accédez rapidement aux centres médicaux.</p>
+                        </div>
+                        <a href="{{ path('app_hospital') }}" type="button" class="btn btn-link">Explorer →</a>
                     </div>
                 </div>
             </div>
+
+            {# app_school #}
+            {# <div class="col-md-4">
+                <div class="card">
+                    <img src="{{ asset('img/school.jpg') }}" alt="École">
+                    <div class="card-text">
+                        <h2><a href="{{ path('app_school') }}" style="color:black;">🏫 Écoles / Universités</a></h2>
+                        <p>Découvrez les cinémas et horaires des séances.</p>
+                    </div>
+                    <a href="{{ path('app_school') }}" type="button" class="btn btn-link">Explorer →</a>
+                </div>
+            </div> #}
+
+            {# app_hotel #}
 
             <div class="row">
-                {# Loisirs #}
                 <div class="col-md-4">
                     <div class="card">
-                        <img src="{{ asset('img/cinema.jpg') }}" alt="Loisirs">
+                        <img src="{{ asset('img/hotel.jpg') }}" alt="Hôtels">
                         <div class="card-text">
-                            <h2><a href="{{ path('app_loisirs') }}" style="color:black;">Loisirs</a></h2>
-                            <p>Cinémas, théâtres, bibliothèques et plus pour vos moments de détente.</p>
+                            <h2><a href="{{ path('app_hotel') }}" style="color:black;">🏨 Hôtels</a></h2>
+                            {# <p>Découvrez les cinémas et horaires des séances.</p> #}
                         </div>
-                        <a href="{{ path('app_loisirs') }}" type="button" class="btn btn-link">Explorer →</a>
+                        <a href="{{ path('app_hotel') }}" type="button" class="btn btn-link">Explorer →</a>
                     </div>
                 </div>
 
-                {# Hair-salon/ services #}
+                {# app_toilets #}
                 <div class="col-md-4">
                     <div class="card">
-                        <img src="{{ asset('img/hair-salon.jpg') }}" alt="Services">
+                        <img src="{{ asset('img/toilets.jpg') }}" alt="Toilettes publiques">
                         <div class="card-text">
-                            <h2><a href="{{ path('app_services_group') }}" style="color:black;">Services divers</a></h2>
-                            <p>Banques, écoles, salons de coiffure et autres services utiles.</p>
+                            <h2><a href="{{ path('app_toilets') }}" style="color:black;">🚻 Toilettes publiques</a></h2>
+                            {# <p>Découvrez les cinémas et horaires des séances.</p> #}
                         </div>
-                        <a href="{{ path('app_services_group') }}" type="button" class="btn btn-link">Explorer →</a>
+                        <a href="{{ path('app_toilets') }}" type="button" class="btn btn-link">Explorer →</a>
                     </div>
                 </div>
 
-                {# Hébergement #}
+                {# app_drinking_water #}
                 <div class="col-md-4">
                     <div class="card">
-                        <img src="{{ asset('img/hotel.jpg') }}" alt="Hébergement">
+                        <img src="{{ asset('img/water.jpg') }}" alt="Point d'eau potable">
                         <div class="card-text">
-                            <h2><a href="{{ path('app_hebergement') }}" style="color:black;">Hébergement</a></h2>
-                            <p>Trouvez des hôtels, auberges et plus près de vous.</p>
+                            <h2><a href="{{ path('app_drinking_water') }}" style="color:black;">💧 Point d'eau
+                                    potable</a></h2>
+                            {# <p>Découvrez les cinémas et horaires des séances.</p> #}
                         </div>
-                        <a href="{{ path('app_hebergement') }}" type="button" class="btn btn-link">Trouver →</a>
+                        <a href="{{ path('app_drinking_water') }}" type="button" class="btn btn-link">Explorer →</a>
                     </div>
                 </div>
+
             </div>
-
-            <div class="row">
-                {# Toilettes publiques #}
-                {# <div class="col-md-4">
-                    <div class="card">
-                        <img src="{{ asset('img/toilettes.jpg') }}" alt="Toilettes publiques">
-                        <div class="card-text">
-                            <h2><a href="{{ path('app_toilettes') }}" style="color:black;">Toilettes publiques</a></h2>
-                            <p>Recherchez des toilettes publiques disponibles près de vous.</p>
-                        </div>
-                        <a href="{{ path('app_toilettes') }}" type="button" class="btn btn-link">Trouver →</a>
-                    </div>
-                </div> #}
-            </div>
-            
         </div>
     </section>
 </main>

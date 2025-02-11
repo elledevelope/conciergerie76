@@ -112,7 +112,7 @@ header .hero-image {
 
 .gallery-section .gallery .card {
   overflow: hidden;
-  margin-bottom: 30px;
+  /* margin-bottom: 50px; */
   max-width: 400px;
   transition: transform 0.3s ease-in-out;
 }
