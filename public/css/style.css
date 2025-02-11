@@ -88,7 +88,7 @@ header .hero-image {
 .gallery-section .sous-titre {
   text-align: center;
   color: grey;
-text-align: justify;
+  text-align: justify;
 }
 
 .gallery-section .gallery {
@@ -206,8 +206,8 @@ footer p {
 }
 
 
-.form-section .creerCompte a, .form-section .creerCompte
-p {
+.form-section .creerCompte a,
+.form-section .creerCompte p {
   font-size: 14px;
   text-align: left;
   display: inline;
@@ -235,6 +235,10 @@ main .item-page {
 /* MEDIA QUERY - Style pour les écrans de 768px de large ou plus (tablettes et ordinateurs) */
 @media (min-width: 768px) {
 
+  main {
+    min-height: 60vh;
+  }
+
   /* HEADER DESKTOP */
   nav,
   section {
@@ -256,7 +260,7 @@ main .item-page {
     font-size: 60px;
   }
 
-  header .hero-title-wrapper p{
+  header .hero-title-wrapper p {
     font-size: 18px;
   }
 
