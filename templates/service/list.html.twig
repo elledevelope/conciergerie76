@@ -54,7 +54,7 @@
     // Add Markers for Each Place
     var markers = [];
     {% for place in places %}
-    var marker = L.marker([{{ place.latitude }}, { { place.longitude } }])
+    var marker = L.marker([{{ place.latitude }}, {{ place.longitude }}])
             .addTo(map)
         .bindPopup(`<b>{{ place.name }}</b><br>{{ place.type }}`);
     markers.push(marker);
