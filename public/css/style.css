@@ -10,6 +10,13 @@
   --font-family: 'Poppins', sans-serif;
 }
 
+nav .span-logo {
+  background-color: #e6c8447d;
+  border-radius: 5px;
+  display: inline-block;
+  transform: rotate(-3deg);
+}
+
 main {
   margin-bottom: 30px;
 }
@@ -76,7 +83,7 @@ header .hero-image {
   margin: auto;
 }
 
-.gallery-section h2 span {
+.span {
   background-color: #e6c8447d;
   border-radius: 5px;
   display: inline-block;
