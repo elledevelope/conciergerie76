@@ -14,32 +14,33 @@ class ServiceController extends AbstractController
     #[Route('/api/services', name: 'api_services', methods: ['GET'])]
     public function getServices(ServiceRepository $serviceRepository, Request $request): JsonResponse
     {
+        // Get the type from the query parameters
         $type = $request->query->get('type');
+        $services = [];
 
-        // If a type filter is provided, fetch services of that type
         if ($type) {
+            // Filter services by type if specified
             $services = $serviceRepository->findBy(['type' => $type]);
         } else {
-            // Fetch all services if no filter is applied
+            // Otherwise, fetch all services
             $services = $serviceRepository->findAll();
         }
 
-        // Format the service data for JSON response
+        // Format the data for the JSON response
         $data = array_map(function ($service) {
             return [
                 'id' => $service->getId(),
                 'name' => $service->getName(),
                 'type' => $service->getType(),
-                'address' => $service->getAddress(),
-                'phone' => $service->getPhone(),
-                'website' => $service->getWebsite(),
                 'latitude' => $service->getLatitude(),
                 'longitude' => $service->getLongitude(),
             ];
         }, $services);
 
+        // Return the data as a JSON response
         return $this->json($data);
     }
+    
 
     // **Page principale des services**
     #[Route('/services', name: 'app_services', methods: ['GET'])]
