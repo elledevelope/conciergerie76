@@ -8,7 +8,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class CguController extends AbstractController
 {
-    #[Route('/cgu', name: 'cgu')]
+    #[Route('/cgu', name: 'app_cgu')]
     public function index(): Response
     {
         return $this->render('cgu/index.html.twig');
