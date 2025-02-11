@@ -13,7 +13,7 @@
                     <span>ENVIRON</span> <br>
                     MENT
                 </h1>
-                <p>Votre concierge personnel</p><br>
+                <p>Votre concierge personnel</p><br> <br>
                 <a style="color: white; text-decoration:none" href="#gallery-section">
                     <button type="button" class="btn btn-dark">
                         Explorer
@@ -41,8 +41,8 @@
     </div>
 
     {# Gallery #}
-    <section class="gallery-section">
-        <h2>Rechercher de points <span>d'intérêt</span></h2>
+    <section class="gallery-section" id="gallery-section">
+        <h2>Explorer les <span>environs</span></h2>
         <div class="gallery">
             <div class="row">
                 {# Fontaines #}
@@ -55,20 +55,46 @@
                     <button type="button" class="btn btn-link">Trouver →</button>
                 </div> #}
 
-                {# Cafe #}
+                {# Nourriture #}
                 <div class="col-md-4">
                     <div class="card">
-                        <img src="{{ asset('img/cafe.jpg') }}" alt="Cafe">
+                        <img src="{{ asset('img/food.jpg') }}" alt="Nourriture">
                         <div class="card-text">
-                            <h2><a href={{path("app_cafe")}} style="color:black;">Cafés à proximité</a></h2>
-                            <p>Trouvez les meilleurs cafés autour de vous en un clin d'œil.</p>
+                            <h2><a href="{{ path('app_nourriture') }}" style="color:black;">Nourriture à proximité</a>
+                            </h2>
+                            <p>Trouvez les meilleurs restaurants, cafés, supermarchés et plus.</p>
                         </div>
-                        <a href={{path("app_park")}} type="button" class="btn btn-link">Trouver →</a>
+                        <a href="{{ path('app_nourriture') }}" type="button" class="btn btn-link">Trouver →</a>
                     </div>
                 </div>
 
-                {# Parcs #}
+                {# Loisirs #}
                 <div class="col-md-4">
+                    <div class="card">
+                        <img src="{{ asset('img/cinema.jpg') }}" alt="Loisirs">
+                        <div class="card-text">
+                            <h2><a href="{{ path('app_loisirs') }}" style="color:black;">Loisirs</a></h2>
+                            <p>Cinémas, théâtres, bibliothèques et plus pour vos moments de détente.</p>
+                        </div>
+                        <a href="{{ path('app_loisirs') }}" type="button" class="btn btn-link">Explorer →</a>
+                    </div>
+                </div>
+
+                {# Hair-salon/ services #}
+                <div class="col-md-4">
+                    <div class="card">
+                        <img src="{{ asset('img/hair-salon.jpg') }}" alt="Services">
+                        <div class="card-text">
+                            <h2><a href="{{ path('app_services_group') }}" style="color:black;">Services divers</a></h2>
+                            <p>Banques, écoles, salons de coiffure et autres services utiles.</p>
+                        </div>
+                        <a href="{{ path('app_services_group') }}" type="button" class="btn btn-link">Explorer →</a>
+                    </div>
+                </div>
+
+
+                {# Parcs #}
+                {# <div class="col-md-4">
                     <div class="card">
                         <img src="{{ asset('img/park.jpg') }}" alt="Parks">
                         <div class="card-text">
@@ -77,10 +103,10 @@
                         </div>
                         <a href={{path("app_park")}} type="button" class="btn btn-link">Se promener →</a>
                     </div>
-                </div>
+                </div> #}
 
                 {# Musées #}
-                <div class="col-md-4">
+                {# <div class="col-md-4">
                     <div class="card">
                         <img src="{{ asset('img/museum.jpg') }}" alt="Museums">
                         <div class="card-text">
@@ -88,10 +114,9 @@
                             <p>Découvrez les trésors cachés des musées.</p>
                         </div>
                         <a href={{path("app_museum")}} type="button" class="btn btn-link">Visiter →</a>
-                        {# <button type="button" class="btn btn-link">Visiter →</button> #}
                     </div>
                 </div>
-            </div>
+            </div> #}
 
             <!-- Bouton "Voir plus" -->
         </div>

@@ -35,9 +35,15 @@ header span {
   background-color: #e6c744;
 }
 
-header p {
-  padding-right: 20px;
+header .hero-title-wrapper p {
+  /* padding-right: 20px;   */
 }
+
+
+header a {
+  margin-top: 20px;
+}
+
 
 header .hero-image {
   overflow: hidden;
@@ -75,15 +81,26 @@ header .hero-image {
   border-radius: 5px;
   display: inline-block;
   transform: rotate(-3deg);
-
   font-size: 2rem;
   margin-bottom: 30px;
+}
+
+.gallery-section .sous-titre {
+  text-align: center;
+  color: grey;
+text-align: justify;
 }
 
 .gallery-section .gallery {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.gallery-section .gallery .row {
+  width: 100%;
 }
 
 .gallery-section .gallery .card {
@@ -103,6 +120,12 @@ header .hero-image {
 
 .gallery-section .gallery .card .card-text p {
   color: gray;
+}
+
+.card img {
+  width: 100%;
+  height: 400px;
+  object-fit: cover;
 }
 
 .btn-link {
@@ -183,7 +206,7 @@ footer p {
 }
 
 
-.form-section .creerCompte a,
+.form-section .creerCompte a, .form-section .creerCompte
 p {
   font-size: 14px;
   text-align: left;
@@ -233,6 +256,10 @@ main .item-page {
     font-size: 60px;
   }
 
+  header .hero-title-wrapper p{
+    font-size: 18px;
+  }
+
   header .hero-image img {
     width: 600px;
   }
@@ -245,24 +272,32 @@ main .item-page {
     width: 60px;
   }
 
-  /* Gallery desktop */
+  /* GALLERY DESKTOP */
   .gallery-section .gallery {
     display: flex;
-    flex-wrap: nowrap;
+    /* flex-wrap: nowrap; */
     justify-content: space-evenly;
     align-items: start;
+    /* gap: 20px;  */
+  }
+
+  .gallery-section .gallery .row {
+    margin-bottom: 30px;
   }
 
   .gallery-section .gallery .card {
     overflow: hidden;
     margin: 30px;
     min-width: 300px;
+    width: 50%;
+    margin: auto;
+    flex-basis: calc(33.33% - 20px);
   }
 
   .gallery-section .gallery img {
     /* min-width: 410px; */
-    max-height: 470px;
-    min-height: 470px;
+    /* max-height: 470px; */
+    /* min-height: 470px; */
     overflow: hidden;
   }
 
@@ -322,6 +357,13 @@ main .item-page {
     width: 70%;
     margin: auto;
     margin-top: 40px;
+  }
+
+
+  /* ---------------------- PAGE '/services' */
+  .gallery-section .sous-titre {
+    font-size: 18px;
+    text-align: center;
   }
 
 }
