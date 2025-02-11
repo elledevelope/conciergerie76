@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg bg-light" data-bs-theme="light">
     <div class="container-fluid">
-        <a class="navbar-brand" href={{path('app_home')}}>Conciergeries <span class="span-logo">76</span></a>
+        <a class="navbar-brand" href={{path('app_home')}}>Conciergerie <span class="span-logo">76</span></a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor03"
             aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -35,11 +35,11 @@
                 {% else %}
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ path("app_login") }}">Login</a>
+                        <a class="nav-link" href="{{ path("app_login") }}">Connexion</a>
                     </li>
-                    {# <li class="nav-item">
-                        <a class="nav-link" href="{{ path(" app_register") }}">Sign in</a>
-                    </li> #}
+                    <li class="nav-item">
+                        <a  type="button" class="btn btn-dark" href="{{ path("app_register") }}">Inscription</a>
+                    </li>
                 </ul>
                 {% endif %}
 
