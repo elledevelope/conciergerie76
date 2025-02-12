@@ -110,6 +110,11 @@ header .hero-image {
   width: 100%;
 }
 
+.gallery-section .gallery .col-md-4 {
+  margin-bottom: 30px;
+}
+
+
 .gallery-section .gallery .card {
   overflow: hidden;
   /* margin-bottom: 50px; */
@@ -306,12 +311,11 @@ main .item-page {
   .gallery-section .gallery .card {
     overflow: hidden;
     margin: 30px;
+    margin: auto;
     min-width: 300px;
     width: 50%;
-    margin: auto;
     flex-basis: calc(33.33% - 20px);
   }
-
   .gallery-section .gallery img {
     /* min-width: 410px; */
     /* max-height: 470px; */
