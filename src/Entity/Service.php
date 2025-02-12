@@ -3,7 +3,10 @@
 namespace App\Entity;
 
 use App\Repository\ServiceRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+
 
 #[ORM\Entity(repositoryClass: ServiceRepository::class)]
 class Service
@@ -33,6 +36,17 @@ class Service
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $address = null;
+
+    /**
+     * @var Collection<int, Favoris>
+     */
+    #[ORM\OneToMany(targetEntity: Favoris::class, mappedBy: 'services')]
+    private Collection $favoris;
+
+    public function __construct()
+    {
+        $this->favoris = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -119,6 +133,36 @@ class Service
     public function setAddress(?string $address): static
     {
         $this->address = $address;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Favoris>
+     */
+    public function getFavoris(): Collection
+    {
+        return $this->favoris;
+    }
+
+    public function addFavori(Favoris $favori): static
+    {
+        if (!$this->favoris->contains($favori)) {
+            $this->favoris->add($favori);
+            $favori->setServices($this);
+        }
+
+        return $this;
+    }
+
+    public function removeFavori(Favoris $favori): static
+    {
+        if ($this->favoris->removeElement($favori)) {
+            // set the owning side to null (unless already changed)
+            if ($favori->getServices() === $this) {
+                $favori->setServices(null);
+            }
+        }
 
         return $this;
     }

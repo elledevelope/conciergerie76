@@ -110,6 +110,7 @@
                         row.innerHTML = `
                             <td><a class="list-places-a" href="/place/${service.id}">${service.name}</a></td>
                             <td>${service.type}</td>
+                             <button class="favorite-btn" data-service="app_cafe">❤️</button>
                         `;
                         placesList.appendChild(row);
                     });

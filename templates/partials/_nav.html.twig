@@ -24,7 +24,8 @@
                
                         <li style="color: gray;" class="nav-item">
                             {# Hello, {{ app.user.email }} #}
-                            <a class="nav-link" href="{{ path("app_home") }}">Mon compte</a>
+                          
+                            <a class="nav-link" href="{{ path('app_user_show', {'id': app.user.id}) }}">Mon compte</a>
                         </li>
 
                         <li class="nav-item">
