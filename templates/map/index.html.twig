@@ -5,8 +5,10 @@
 {% block body %}
 <div class="container mt-4">
     <h1 class="text-center mb-4">Explorez les services à proximité</h1>
-    <p style="text-align: center; color:gray">Découvrez facilement les cafés, parkings, locations de vélos et autres services essentiels autour de vous.
-    </p>
+    <p style="text-align: center; color:gray">Découvrez facilement les cafés, parkings, locations de vélos et autres services essentiels autour de vous.</p>
+
+    <!-- Find Me Button -->
+    <button id="find-me-btn" class="btn btn-primary mb-4">📍 Ma position</button>
 
     <!-- Map Container -->
     <div id="map" class="rounded shadow-sm" style="height: 500px; margin-bottom: 20px;"></div>
@@ -55,9 +57,11 @@
     </div>
 </div>
 
-<!-- Leaflet.js & Bootstrap -->
+<!-- Leaflet.js & Leaflet Routing Machine -->
 <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
 <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.css" />
+<script src="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.js"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
@@ -68,7 +72,7 @@
     // Add OpenStreetMap tiles
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
 
-    // Custom red marker for user location
+    // Custom red marker for user location (initially not added to the map)
     var userLocationIcon = L.icon({
         iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-red.png',
         iconSize: [25, 41],
@@ -76,11 +80,13 @@
         popupAnchor: [1, -34]
     });
 
-    var userLocationMarker = L.marker([49.4431, 1.0993], { icon: userLocationIcon }).addTo(map);
-    userLocationMarker.bindPopup("Vous êtes ici").openPopup();
+    var userLocationMarker = null; // Placeholder for the marker
 
     // Store the current markers for the map
     var markers = [];
+
+    // Route control
+    var routeControl = null;
 
     // Function to fetch and display services
     function fetchServices(filterType = '') {
@@ -106,7 +112,7 @@
                     data.forEach(service => {
                         var marker = L.marker([service.latitude, service.longitude])
                             .addTo(map)
-                            .bindPopup(`<b>${service.name}</b><br>${service.type}`);
+                            .bindPopup(`<b>${service.name}</b><br>${service.type}<br><button onclick="showRoute(${service.latitude}, ${service.longitude})" class="btn btn-sm btn-link">🗺️ Calculer l'itinéraire</button>`);
                         markers.push(marker);
 
                         let row = document.createElement('tr');
@@ -143,9 +149,61 @@
         } else {
             markers.forEach(marker => marker.remove());
             markers = [];
-            userLocationMarker.addTo(map);
         }
     });
-</script>
 
+    // Find user location and add the marker when "Ma position" button is clicked
+    document.getElementById('find-me-btn').addEventListener('click', function () {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(
+                function (position) {
+                    var lat = position.coords.latitude;
+                    var lng = position.coords.longitude;
+
+                    if (userLocationMarker) {
+                        userLocationMarker.setLatLng([lat, lng]).update();
+                    } else {
+                        userLocationMarker = L.marker([lat, lng], { icon: userLocationIcon })
+                            .addTo(map)
+                            .bindPopup("Vous êtes ici")
+                            .openPopup();
+                    }
+
+                    map.setView([lat, lng], 15);
+                },
+                function (error) {
+                    alert("Erreur de géolocalisation : " + error.message);
+                }
+            );
+        } else {
+            alert("La géolocalisation n'est pas prise en charge par votre navigateur.");
+        }
+    });
+
+    // Function to calculate the route from user location to a selected service
+    function showRoute(destinationLat, destinationLng) {
+        if (routeControl) {
+            map.removeControl(routeControl); // Remove any existing route
+        }
+
+        navigator.geolocation.getCurrentPosition(
+            function (position) {
+                var userLat = position.coords.latitude;
+                var userLng = position.coords.longitude;
+
+                routeControl = L.Routing.control({
+                    waypoints: [
+                        L.latLng(userLat, userLng),
+                        L.latLng(destinationLat, destinationLng)
+                    ],
+                    routeWhileDragging: false,
+                    show: true
+                }).addTo(map);
+            },
+            function (error) {
+                alert("Erreur de géolocalisation : " + error.message);
+            }
+        );
+    }
+</script>
 {% endblock %}
