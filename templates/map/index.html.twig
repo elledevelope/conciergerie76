@@ -4,14 +4,14 @@
 
 {% block body %}
 <div class="container mt-4">
-    <h1 class="text-center mb-4">Points of Interest in Rouen</h1>
+    <h1 class="display-4 text-center mb-5 text-primary">Points d'intérêt à Rouen</h1>
 
     <!-- Map Container -->
-    <div id="map" class="rounded shadow-sm" style="height: 500px; margin-bottom: 20px;"></div>
+    <div id="map" class="rounded shadow-lg mb-4" style="height: 600px;"></div>
 
     <!-- Filter by Type Dropdown -->
-    <div class="mb-4">
-        <select id="service-filter" class="form-select">
+    <div class="mb-4 text-center">
+        <select id="service-filter" class="form-select form-select-lg">
             <option value="">Sélectionnez une catégorie</option>
             <option value="fast_food">🍔 Restauration rapide</option>
             <option value="boulangerie">🍞 Boulangerie</option>
@@ -40,19 +40,19 @@
     </div>
 
     <!-- List of Places -->
-    <h2 class="mt-4" id="places-header" style="display: none;">List of Places</h2>
+    <h2 class="h3 mb-3" id="places-header" style="display: none;">Liste des lieux</h2>
     <div class="table-responsive" id="places-list-container" style="display: none;">
-        <table class="table table-striped table-bordered table-hover">
+        <table class="table table-hover table-striped table-bordered">
             <tbody id="places-list">
                 <tr>
-                    <td colspan="6" class="text-center">Please select a category.</td>
+                    <td colspan="3" class="text-center">Veuillez sélectionner une catégorie.</td>
                 </tr>
             </tbody>
         </table>
     </div>
 </div>
 
-<!-- Leaflet.js & Bootstrap -->
+<!-- CSS and JS for Leaflet & Bootstrap -->
 <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
 <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
@@ -63,7 +63,9 @@
     var map = L.map('map').setView([49.4431, 1.0993], 13);
 
     // Add OpenStreetMap tiles
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map);
 
     // Custom red marker for user location
     var userLocationIcon = L.icon({
@@ -76,7 +78,6 @@
     var userLocationMarker = L.marker([49.4431, 1.0993], { icon: userLocationIcon }).addTo(map);
     userLocationMarker.bindPopup("Vous êtes ici").openPopup();
 
-    // Store the current markers for the map
     var markers = [];
 
     // Function to fetch and display services
@@ -93,13 +94,11 @@
                 markers.forEach(marker => marker.remove());
                 markers = [];
 
-                // If no services found, show a message
                 if (data.length === 0) {
-                    placesList.innerHTML = '<tr><td colspan="6" class="text-center">No places found.</td></tr>';
+                    placesList.innerHTML = '<tr><td colspan="3" class="text-center">Aucun lieu trouvé.</td></tr>';
                     placesListContainer.style.display = 'block';
                     placesHeader.style.display = 'block';
                 } else {
-                    // Loop over services and add markers and table rows
                     data.forEach(service => {
                         var marker = L.marker([service.latitude, service.longitude])
                             .addTo(map)
@@ -108,21 +107,20 @@
 
                         let row = document.createElement('tr');
                         row.innerHTML = `
-                            <td><a class="list-places-a" href="/place/${service.id}">${service.name}</a></td>
+                            <td><a href="/place/${service.id}">${service.name}</a></td>
                             <td>${service.type}</td>
-                             <button class="favorite-btn" data-service="app_cafe">❤️</button>
+                            <td><button class="btn btn-sm btn-outline-danger favorite-btn" data-service="${service.type}">❤️</button></td>
                         `;
                         placesList.appendChild(row);
                     });
-
                     placesListContainer.style.display = 'block';
                     placesHeader.style.display = 'block';
                 }
             })
             .catch(error => {
-                console.error('Error loading data:', error);
+                console.error('Erreur lors du chargement des données:', error);
                 document.getElementById('places-list').innerHTML = `
-                    <tr><td colspan="6" class="text-center text-danger">Error loading places.</td></tr>
+                    <tr><td colspan="3" class="text-center text-danger">Erreur lors du chargement des lieux.</td></tr>
                 `;
             });
     }
@@ -130,12 +128,9 @@
     // Listen for changes on the filter dropdown
     document.getElementById('service-filter').addEventListener('change', function () {
         var selectedType = this.value;
-
-        // Hide the places list and markers before fetching data
         document.getElementById('places-list-container').style.display = 'none';
         document.getElementById('places-header').style.display = 'none';
 
-        // If a type is selected, fetch services, else leave the map and table empty
         if (selectedType) {
             fetchServices(selectedType);
         } else {

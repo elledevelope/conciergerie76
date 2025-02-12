@@ -16,7 +16,7 @@ class Favoris
     #[ORM\OneToOne(cascade: ['persist', 'remove'])]
     private ?User $users = null;
 
-    #[ORM\ManyToOne(inversedBy: 'favoris')]
+    #[ORM\ManyToOne(targetEntity: User::class,inversedBy: 'favoris')]
     private ?Service $services = null;
 
     public function getId(): ?int
