@@ -227,8 +227,12 @@ footer p {
 
 /* ------------------------ ITEM PAGE */
 main .item-page {
-  height: 65vh;
+  height: 90vh;
   margin-top: 40px;
+}
+
+.item-page .card:hover {
+  transform: none;
 }
 
 /* ------------------------ /map */
@@ -316,6 +320,7 @@ main .item-page {
     width: 50%;
     flex-basis: calc(33.33% - 20px);
   }
+
   .gallery-section .gallery img {
     /* min-width: 410px; */
     /* max-height: 470px; */
