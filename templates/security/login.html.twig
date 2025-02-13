@@ -3,62 +3,55 @@
 {% block title %}Log in!{% endblock %}
 
 {% block body %}
-{# <div class="container d-flex justify-content-center align-items-center vh-100"> #}
-    {# <div class="card shadow-lg p-4" style="width: 400px;"> #}
-
-        <main>
-            <section class="form-section">
-                <div class="form-title">
-                    <h1>Connectez-vous</h1>
-                    <p>Connectez-vous pour acceder à votre espace</p>
-                </div>
+<main>
+    <section class="form-section">
+        <div class="form-title">
+            <h1>Connectez-vous</h1>
+            <p>Connectez-vous pour acceder à votre espace</p>
+        </div>
 
 
-                <form method="post">
-                    {% if error %}
-                    <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-                    {% endif %}
+        <form method="post">
+            {% if error %}
+            <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+            {% endif %}
 
-                    {% if app.user %}
-                    <div class="alert alert-info text-center">
-                        You are logged in as <strong>{{ app.user.userIdentifier }}</strong>,
-                        <a href="{{ path('app_logout') }}" class="text-danger">Logout</a>
-                    </div>
-                    {% endif %}
+            {% if app.user %}
+            <div class="alert alert-info text-center">
+                You are logged in as <strong>{{ app.user.userIdentifier }}</strong>,
+                <a href="{{ path('app_logout') }}" class="text-danger">Logout</a>
+            </div>
+            {% endif %}
 
-                    <div class="mb-3">
-                        <label for="inputEmail" class="form-label">Email</label>
-                        <input type="email" value="{{ last_username }}" name="email" id="inputEmail"
-                            class="form-control" autocomplete="email" placeholder="example@gmail.com" required
-                            autofocus>
-                    </div>
+            <div class="mb-3">
+                <label for="inputEmail" class="form-label">Email</label>
+                <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control"
+                    autocomplete="email" placeholder="example@gmail.com" required autofocus>
+            </div>
 
-                    <div class="mb-3">
-                        <label for="inputPassword" class="form-label">Password</label>
-                        <input type="password" name="password" id="inputPassword" class="form-control"
-                            autocomplete="current-password" required>
-                    </div>
+            <div class="mb-3">
+                <label for="inputPassword" class="form-label">Password</label>
+                <input type="password" name="password" id="inputPassword" class="form-control"
+                    autocomplete="current-password" required>
+            </div>
 
-                    <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
 
-                    {# <div class="form-check mb-3">
-                        <input class="form-check-input" type="checkbox" name="_remember_me" id="rememberMe">
-                        <label class="form-check-label" for="rememberMe">Se souvenir de moi</label>
-                    </div> #}
+            {# <div class="form-check mb-3">
+                <input class="form-check-input" type="checkbox" name="_remember_me" id="rememberMe">
+                <label class="form-check-label" for="rememberMe">Se souvenir de moi</label>
+            </div> #}
 
-                    <button type="submit" class="btn btn-dark w-100 btn-lg connexion-btn">
-                        Connexion
-                    </button>
+            <button type="submit" class="btn btn-dark w-100 btn-lg connexion-btn">
+                Connexion
+            </button>
 
-                    <div class="creerCompte">
-                        <p>Vous n'avez pas de compte?</p><a class="btn btn-link" href={{path("app_register")}}>Créer un
-                            compte.</a>
-                    </div>
-                </form>
+            <div class="creerCompte">
+                <p>Vous n'avez pas de compte?</p><a class="btn btn-link" href={{path("app_register")}}>Créer un
+                    compte.</a>
+            </div>
+        </form>
 
-            </section>
-        </main>
-        {#
-    </div> #}
-    {# </div> #}
+    </section>
+</main>
 {% endblock %}
