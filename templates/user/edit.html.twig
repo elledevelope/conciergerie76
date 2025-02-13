@@ -12,7 +12,7 @@
         {{ include('user/_form.html.twig', {'button_label': 'Mise à jour'}) }} <br>
         {{ include('user/_delete_form.html.twig') }}
 
-        <a ype="button" class="btn btn-outline-dark" href="{{ path('app_user_index') }}">⬅ Revenir à la page
+        <a ype="button" class="btn btn-outline-dark" href="{{ path('app_user_show', {'id': app.user.id}) }}">⬅ Revenir à la page
             précédente</a>
     </section>
 </main>
