@@ -239,6 +239,10 @@ main .item-page {
   transform: none;
 }
 
+.section-compte .card-compte:hover {
+  transform: none;
+}
+
 /* ------------------------ /map */
 .list-places-a {
   text-decoration: none;

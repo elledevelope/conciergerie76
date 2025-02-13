@@ -3,45 +3,24 @@
 {% block title %}User{% endblock %}
 
 {% block body %}
-<h1>Utilisateur</h1>
 
-<table class="table">
-    <tbody>
-        <tr>
-            <th>Id</th>
-            <td>{{ user.id }}</td>
-        </tr>
-        <tr>
-            <th>Email</th>
-            <td>{{ user.email }}</td>
-        </tr>
-
-        <tr>
-            <th>Nom</th>
-            <td>{{ user.nom }}</td>
-        </tr>
-        <tr>
-            <th>Prenom</th>
-            <td>{{ user.prenom }}</td>
-        </tr>
-        <tr>
-            <th>Datedenaissance</th>
-            <td>{{ user.datedenaissance ? user.datedenaissance|date('Y-m-d H:i:s') : '' }}</td>
-        </tr>
-        <tr>
-            <th>Adresse</th>
-            <td>{{ user.adresse }}</td>
-        </tr>
-        <tr>
-            <th>Avatar</th>
-            <td>{{ user.avatar }}</td>
-        </tr>
-    </tbody>
-</table>
-
-{# <a href="{{ path('app_user_index') }}">back to list</a> #}
-
-<a href="{{ path('app_user_edit', {'id': user.id}) }}">Modifier</a>
-
-{{ include('user/_delete_form.html.twig') }}
+<main>
+    <section class="section-compte d-flex justify-content-center align-items-center" style="height: 100vh;">
+        <div class="card-compte card text-white bg-dark mb-3" style="max-width: 20rem;">
+            <div class="card-header">Mon Compte</div>
+            <div class="card-body">
+                <h4 class="card-title">{{ user.prenom }} {{ user.nom }}</h4>
+                <p class="card-text">Date de naissance: {{ user.datedenaissance ? user.datedenaissance|date('Y-m-d
+                    H:i:s') : '' }}</p>
+                <p class="card-text">Adresse: {{ user.adresse }}</p>
+                <p class="card-text">Email: {{ user.email }}</p>
+            </div>
+            <div class="card-footer d-flex justify-content-between">
+                <a type="button" class="btn btn-success"
+                    href="{{ path('app_user_edit', {'id': user.id}) }}">Modifier</a>
+                {{ include('user/_delete_form.html.twig') }}
+            </div>
+        </div>
+    </section>
+</main>
 {% endblock %}
