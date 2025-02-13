@@ -34,6 +34,9 @@ class Service
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $address = null;
 
+    #[ORM\Column(type: 'text', nullable: true)]
+    private ?string $description = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -47,7 +50,6 @@ class Service
     public function setName(string $name): static
     {
         $this->name = $name;
-
         return $this;
     }
 
@@ -59,7 +61,6 @@ class Service
     public function setType(string $type): static
     {
         $this->type = $type;
-
         return $this;
     }
 
@@ -71,7 +72,6 @@ class Service
     public function setLatitude(float $latitude): static
     {
         $this->latitude = $latitude;
-
         return $this;
     }
 
@@ -83,7 +83,6 @@ class Service
     public function setLongitude(float $longitude): static
     {
         $this->longitude = $longitude;
-
         return $this;
     }
 
@@ -95,7 +94,6 @@ class Service
     public function setPhone(?string $phone): static
     {
         $this->phone = $phone;
-
         return $this;
     }
 
@@ -107,7 +105,6 @@ class Service
     public function setWebsite(?string $website): static
     {
         $this->website = $website;
-
         return $this;
     }
 
@@ -119,7 +116,17 @@ class Service
     public function setAddress(?string $address): static
     {
         $this->address = $address;
+        return $this;
+    }
 
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(?string $description): static
+    {
+        $this->description = $description;
         return $this;
     }
 }
