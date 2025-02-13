@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mes Services{% endblock %}
+
+{% block body %}
+    <h1>Mes Services</h1>
+
+    {% if services is not empty %}
+        <ul>
+            {% for service in services %}
+                <li>{{ service.name }} - {{ service.description }}</li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>Aucun service trouvé.</p>
+    {% endif %}
+{% endblock %}
