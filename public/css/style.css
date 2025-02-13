@@ -10,6 +10,10 @@
   --font-family: 'Poppins', sans-serif;
 }
 
+.leaflet-routing-alt {
+  background-color: white;
+}
+
 nav .span-logo {
   background-color: #e6c8447d;
   border-radius: 5px;
@@ -109,6 +113,11 @@ header .hero-image {
 .gallery-section .gallery .row {
   width: 100%;
 }
+
+.gallery-section .gallery .col-md-4 {
+  margin-bottom: 30px;
+}
+
 
 .gallery-section .gallery .card {
   overflow: hidden;
@@ -222,8 +231,16 @@ footer p {
 
 /* ------------------------ ITEM PAGE */
 main .item-page {
-  height: 65vh;
+  height: 90vh;
   margin-top: 40px;
+}
+
+.item-page .card:hover {
+  transform: none;
+}
+
+.section-compte .card-compte:hover {
+  transform: none;
 }
 
 /* ------------------------ /map */
@@ -237,6 +254,13 @@ main .item-page {
   text-decoration: underline;
 
 }
+
+.agree-terms-label {
+  font-size: 12px;
+  color: grey;
+  text-align: justify;
+}
+
 
 /* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
 /* MEDIA QUERY - Style pour les écrans de 768px de large ou plus (tablettes et ordinateurs) */
@@ -299,9 +323,9 @@ main .item-page {
   .gallery-section .gallery .card {
     overflow: hidden;
     margin: 30px;
+    margin: auto;
     min-width: 300px;
     width: 50%;
-    margin: auto;
     flex-basis: calc(33.33% - 20px);
   }
 

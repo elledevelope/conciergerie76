@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nous Contacter{% endblock %}
+
+{% block body %}
+ <main>
+            <section class="form-section">
+                <div class="form-title">
+                    <h1>Nous Contacter</h1>
+                </div>
+
+                {{ form_errors(contactForm) }}
+
+                {{ form_start(contactForm, {'attr': {'class': 'needs-validation', 'novalidate': 'true'}}) }}
+
+                <div class="mb-3">
+                    {{ form_row(contactForm.nom, {'attr': {'class': 'form-control'}}) }}
+                </div>
+
+                <div class="mb-3">
+                    {{ form_row(contactForm.prenom, {'attr': {'class': 'form-control'}}) }}
+                </div>
+
+                <div class="mb-3">
+                    {{ form_row(contactForm.email, {'attr': {'class': 'form-control'}}) }}
+                </div>
+                 <div class="mb-3">
+                    {{ form_row(contactForm.telephone, {'attr': {'class': 'form-control'}}) }}
+                </div>
+                 <div class="mb-3">
+                    {{ form_row(contactForm.objet, {'attr': {'class': 'form-control'}}) }}
+                </div>
+                 <div class="mb-3">
+                    {{ form_row(contactForm.message, {'attr': {'class': 'form-control'}}) }}
+                </div>
+
+                <div class="form-check mb-3">
+                    {{ form_widget(contactForm.agreeTerms, {'attr': {'class': 'form-check-input'}}) }}
+                    {{ form_label(contactForm.agreeTerms, null, {'attr': {'class': 'form-check-label'}}) }}
+                </div>
+
+                <button type="submit" class="btn btn-dark w-100 btn-lg connexion-btn">Envoyer</button>
+
+               
+                {{ form_end(contactForm) }}
+            </section>
+        </main>
+{% endblock %}
