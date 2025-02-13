@@ -3,6 +3,8 @@
 {% block title %}Carte{% endblock %}
 
 {% block body %}
+<script > const urlfavoris = "{{path('app_favoris')}}"</script>
+<script src="{{ asset('js/favoris.js') }}"defer></script>
 <div class="container mt-4">
     <h1 class="text-center mb-4">Explorez les services à proximité</h1>
     <p style="text-align: center; color:gray">Découvrez facilement les cafés, parkings, locations de vélos et autres services essentiels autour de vous.</p>
@@ -119,12 +121,16 @@
                         row.innerHTML = `
                             <td><a class="list-places-a" href="/place/${service.id}">${service.name}</a></td>
                             <td>${service.type}</td>
+                             <td><button class="fav btn btn-sm btn-outline-danger favorite-btn" data-service="${service.id}">❤️</button></td>
+                            
                         `;
-                        placesList.appendChild(row);
+                        placesList.appendChild(row); 
+
                     });
 
                     placesListContainer.style.display = 'block';
                     placesHeader.style.display = 'block';
+                    activeFav();
                 }
             })
             .catch(error => {
