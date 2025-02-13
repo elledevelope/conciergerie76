@@ -3,15 +3,19 @@
 *Note : La dernière version du projet est sur la branche `dev`.*
 
 Conciergerie76 est un projet Symfony fonctionnant avec WAMP pour le moment et avec un serveur LAMP sous Debian par la suite.
-Pour apporter des modifications, vous devez d'abord forker ce repository.
 
 
-<img src="/screenshots/landing-page.png" alt="screenshot" width="500" height="650"> 
+<img src="/screenshots/landing-page-2.png" alt="screenshot" width="500" height="650"> <br>
+<img src="/screenshots/map-itiniraire.png" alt="screenshot" > 
+
 
 ## Fonctionnalités
 - Page d'accueil avec barre de navigation
 - Intégration de Leaflet et OpenStreetMap pour une carte interactive
 - Localisation de l'utilisateur sur la carte
+- Calcule d'un itinéraire vers un lieu sélectionné
+- L'ajout d’un service aux favoris
+
 
 
 
