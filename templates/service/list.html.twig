@@ -107,13 +107,8 @@
         map.fitBounds(group.getBounds());
     }
 
-    // Function to calculate route from user's location to selected place
+    // Function to calculate the route from user location to a selected service
     function showRoute(destinationLat, destinationLng) {
-        if (!userLocationMarker) {
-            alert("Veuillez d'abord cliquer sur 'Ma position' pour définir votre position.");
-            return;
-        }
-
         if (routeControl) {
             map.removeControl(routeControl); // Remove any existing route
         }

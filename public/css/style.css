@@ -10,6 +10,10 @@
   --font-family: 'Poppins', sans-serif;
 }
 
+.leaflet-routing-alt {
+  background-color: white;
+}
+
 nav .span-logo {
   background-color: #e6c8447d;
   border-radius: 5px;
