@@ -322,8 +322,8 @@ main .item-page {
 
   .gallery-section .gallery .card {
     overflow: hidden;
-    margin: 30px;
-    margin: auto;
+    padding: 30px;
+    /* margin: auto; */
     min-width: 300px;
     width: 50%;
     flex-basis: calc(33.33% - 20px);
