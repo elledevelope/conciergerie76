@@ -85,6 +85,9 @@ header .hero-image {
 
 .gallery-section .row {
   margin: auto;
+  display: flex;
+  flex-direction: column;
+  align-content: center;
 }
 
 .span {
@@ -112,6 +115,8 @@ header .hero-image {
 
 .gallery-section .gallery .row {
   width: 100%;
+  margin: auto;
+    flex-direction: row;
 }
 
 .gallery-section .gallery .col-md-4 {
@@ -317,15 +322,16 @@ main .item-page {
   }
 
   .gallery-section .gallery .row {
-    margin-bottom: 30px;
+    display: flex;
+    /* flex-direction: row; */
   }
 
   .gallery-section .gallery .card {
     overflow: hidden;
-    padding: 30px;
+    /* padding: 30px; */
     /* margin: auto; */
-    min-width: 300px;
-    width: 50%;
+    /* min-width: 300px; */
+    /* width: 50%; */
     flex-basis: calc(33.33% - 20px);
   }
 
