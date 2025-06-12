@@ -16,6 +16,12 @@ DATABASE_URL="mysql://root:@127.0.0.1:3306/conciergerie76"
 symfony.exe server:start
 ```
 
+
+### Command to fetch and save POIs into the database: 
+`php bin/console app:fetch-pois`
+
+
+
 ## Resources 
 https://leafletjs.com/examples/quick-start/
 <<<<<<< HEAD
